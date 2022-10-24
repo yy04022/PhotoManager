@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Pagination?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="546.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.photo.PhotoView">
+   <children>
+      <Pane prefHeight="319.0" prefWidth="600.0">
+         <children>
+            <Button layoutX="14.0" layoutY="15.0" mnemonicParsing="false" text="Back" />
+            <Button layoutX="523.0" layoutY="15.0" mnemonicParsing="false" text="Logout" textFill="#d02121" />
+            <Label layoutX="280.0" layoutY="25.0" text="Photo View">
+               <font>
+                  <Font size="28.0" />
+               </font>
+            </Label>
+            <Label layoutX="21.0" layoutY="88.0" text="Photo Name:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Label layoutX="21.0" layoutY="147.0" text="Caption:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Label layoutX="21.0" layoutY="202.0" text="Date:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Button layoutX="229.0" layoutY="29.0" mnemonicParsing="false" text="&lt;" />
+            <Button layoutX="437.0" layoutY="29.0" mnemonicParsing="false" text="&gt;" />
+            <Label layoutX="20.0" layoutY="110.0" prefHeight="34.0" prefWidth="168.0" text="Label">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="21.0" layoutY="172.0" prefHeight="24.0" prefWidth="151.0" text="Label">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="21.0" layoutY="232.0" prefHeight="24.0" prefWidth="151.0" text="Label">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="227.0" fitWidth="362.0" layoutX="191.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true" />
+            <Pagination layoutX="191.0" layoutY="74.0" prefHeight="221.0" prefWidth="323.0" />
+         </children>
+      </Pane>
+      <Pane layoutX="14.0" layoutY="319.0" prefHeight="200.0" prefWidth="568.0">
+         <children>
+            <ListView layoutX="245.0" prefHeight="200.0" prefWidth="323.0" />
+            <Label layoutX="24.0" layoutY="39.0" text="Tag Type :" />
+            <Label layoutX="24.0" layoutY="92.0" prefHeight="26.0" prefWidth="69.0" text="Tag Value" />
+            <TextField layoutX="24.0" layoutY="56.0" />
+            <TextField layoutX="24.0" layoutY="118.0" />
+            <Button layoutX="25.0" layoutY="161.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="69.0" text="Add" />
+            <Button layoutX="114.0" layoutY="161.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="69.0" text="Delete" />
+            <Label layoutX="22.0" layoutY="14.0" prefHeight="17.0" prefWidth="119.0" text="Tag Detail">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
