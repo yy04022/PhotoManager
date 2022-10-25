@@ -36,8 +36,6 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <Button layoutX="229.0" layoutY="29.0" mnemonicParsing="false" text="&lt;" />
-            <Button layoutX="437.0" layoutY="29.0" mnemonicParsing="false" text="&gt;" />
             <Label layoutX="20.0" layoutY="110.0" prefHeight="34.0" prefWidth="168.0" text="Label">
                <font>
                   <Font size="15.0" />

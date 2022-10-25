@@ -8,15 +8,14 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="535.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.photo.AlbumView">
    <children>
       <Pane layoutY="-8.0" prefHeight="516.0" prefWidth="600.0">
          <children>
             <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Back" />
             <Label layoutX="7.0" layoutY="54.0" text="Photo Name" />
-            <Label layoutX="26.0" layoutY="89.0" text="Label" />
-            <Label layoutX="26.0" layoutY="127.0" text="Label" />
+            <Label layoutX="5.0" layoutY="89.0" text="Album Name" />
+            <Label layoutX="7.0" layoutY="128.0" text="Caption" />
             <ListView layoutX="3.0" layoutY="188.0" prefHeight="319.0" prefWidth="587.0" />
             <TextField layoutX="84.0" layoutY="50.0" prefHeight="26.0" prefWidth="328.0" />
             <TextField layoutX="84.0" layoutY="84.0" prefHeight="26.0" prefWidth="328.0" />
