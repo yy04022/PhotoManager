@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.EventObject;
 import java.util.Scanner;
 
-public class LoginController {
+public class LoginController extends Controller {
 
     public TextArea userNameTF;
 
@@ -27,7 +27,7 @@ public class LoginController {
         while(scanner.hasNext()){
             String input = scanner.next();
             if(username.equals(input) && input.equals("admin")){
-                loadPage("Adminpage.fxml","Adminpage",actionEvent);
+                loadPage("Adminpage.fxml","AdminController",actionEvent);
             }else if(username.equals(input)){
                 loadPage("UserDashboard.fxml","UserDashboard",actionEvent);
             }
@@ -35,15 +35,5 @@ public class LoginController {
 
 
     }
-    public void loadPage(String fxmlPath,String title,ActionEvent actionEvent){
-        Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-        Parent scene = null;
-        try {
-            scene = FXMLLoader.load(getClass().getResource(fxmlPath));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        stage.setTitle(title);
-        stage.setScene(new Scene(scene));
-    }
+
 }
