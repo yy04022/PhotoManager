@@ -27,8 +27,10 @@ public class LoginController extends Controller {
         while(scanner.hasNext()){
             String input = scanner.next();
             if(username.equals(input) && input.equals("admin")){
+                loginUser = username;
                 loadPage("Adminpage.fxml","AdminController",actionEvent);
             }else if(username.equals(input)){
+                loginUser = username;
                 loadPage("UserDashboard.fxml","UserDashboard",actionEvent);
             }
         }

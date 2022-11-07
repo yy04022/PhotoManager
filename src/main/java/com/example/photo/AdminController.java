@@ -79,6 +79,22 @@ public class AdminController extends Controller {
     }
     public void deleteUserButtonClick(ActionEvent actionEvent) {
         User deleteUser = userList.getSelectionModel().getSelectedItem();
+        userList.getItems().remove(deleteUser);
+        data.remove(deleteUser);
+       userList.getSelectionModel().select(deleteUser);
+        StringBuilder stringBuilder = new StringBuilder();
+        for (User user : data) {
+            stringBuilder.append(user.getUsername()).append("\n");
+        }
+        try {
+
+            FileWriter fileWriter = new FileWriter("src/main/java/com/example/photo/users.txt", false);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            bufferedWriter.write(stringBuilder.toString());
+            bufferedWriter.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
@@ -102,4 +118,7 @@ public class AdminController extends Controller {
 
     }
 
+    public void onLogoutButtonClick(ActionEvent actionEvent) {
+        loadPage("Login.fxml","Login",actionEvent);
+    }
 }

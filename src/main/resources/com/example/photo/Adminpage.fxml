@@ -24,7 +24,7 @@
                   <Button layoutX="460.0" layoutY="46.0" mnemonicParsing="false" onAction="#listUserButtonClick" prefHeight="37.0" prefWidth="98.0" text="List User" />
                   <Button layoutX="294.0" layoutY="63.0" mnemonicParsing="false" onAction="#addUserButtonClick" prefHeight="47.0" prefWidth="90.0" text="Add User" />
                   <TextField fx:id="userNameTF" layoutX="50.0" layoutY="61.0" prefHeight="47.0" prefWidth="224.0" />
-                  <Button layoutX="490.0" layoutY="8.0" mnemonicParsing="false" text="Log Out" />
+                  <Button layoutX="490.0" layoutY="8.0" mnemonicParsing="false" onAction="#onLogoutButtonClick" text="Log Out" />
                </children>
             </Pane>
             <Pane prefHeight="237.0" prefWidth="600.0">

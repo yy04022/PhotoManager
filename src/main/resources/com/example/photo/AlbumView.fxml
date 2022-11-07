@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
@@ -16,24 +17,25 @@
             <Label layoutX="7.0" layoutY="54.0" text="Photo Name" />
             <Label layoutX="5.0" layoutY="89.0" text="Album Name" />
             <Label layoutX="7.0" layoutY="128.0" text="Caption" />
-            <ListView layoutX="3.0" layoutY="188.0" prefHeight="319.0" prefWidth="587.0" />
-            <TextField layoutX="84.0" layoutY="50.0" prefHeight="26.0" prefWidth="328.0" />
-            <TextField layoutX="84.0" layoutY="84.0" prefHeight="26.0" prefWidth="328.0" />
-            <TextField layoutX="84.0" layoutY="122.0" prefHeight="26.0" prefWidth="328.0" />
+            <ListView fx:id="photoLv" layoutX="3.0" layoutY="188.0" prefHeight="319.0" prefWidth="357.0" />
+            <TextField fx:id="photoNameTF" layoutX="84.0" layoutY="50.0" prefHeight="26.0" prefWidth="328.0" />
+            <TextField fx:id="albumNameTF" layoutX="84.0" layoutY="84.0" prefHeight="26.0" prefWidth="328.0" />
+            <TextField fx:id="captionNameTF" layoutX="84.0" layoutY="122.0" prefHeight="26.0" prefWidth="328.0" />
             <Button layoutX="516.0" layoutY="15.0" mnemonicParsing="false" text="Logout" textFill="#c32222" />
             <Label layoutX="199.0" layoutY="14.0" text="Album Display">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <Button layoutX="52.0" layoutY="156.0" mnemonicParsing="false" text="Add  " />
-            <Button layoutX="119.0" layoutY="156.0" mnemonicParsing="false" text="Delete " />
-            <Button layoutX="205.0" layoutY="156.0" mnemonicParsing="false" text="Caption/Recaption" />
-            <Button layoutX="455.0" layoutY="156.0" mnemonicParsing="false" text="Move" />
-            <Button layoutX="520.0" layoutY="156.0" mnemonicParsing="false" text="Copy" />
-            <TextField layoutX="455.0" layoutY="123.0" prefHeight="26.0" prefWidth="108.0" />
+            <Button layoutX="52.0" layoutY="156.0" mnemonicParsing="false" onAction="#addPhotoButtonClick" text="Add  " />
+            <Button layoutX="119.0" layoutY="156.0" mnemonicParsing="false" onAction="#deletePhotoButtonClick" text="Delete " />
+            <Button layoutX="205.0" layoutY="156.0" mnemonicParsing="false" onAction="#captionButtonClick" text="Caption/Recaption" />
+            <Button layoutX="455.0" layoutY="156.0" mnemonicParsing="false" onAction="#moveLocationButtonClick" text="Move" />
+            <Button layoutX="520.0" layoutY="156.0" mnemonicParsing="false" onAction="#copyLocationButtonlick" text="Copy" />
+            <TextField fx:id="locationTF" layoutX="455.0" layoutY="123.0" prefHeight="26.0" prefWidth="108.0" />
             <Label layoutX="455.0" layoutY="98.0" prefHeight="17.0" prefWidth="127.0" text="Desitinated Location" />
-            <Button layoutX="455.0" layoutY="54.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="108.0" text="Open Photo" />
+            <Button layoutX="455.0" layoutY="54.0" mnemonicParsing="false" onAction="#openPhotoButtonClick" prefHeight="35.0" prefWidth="108.0" text="Open Photo" />
+            <ImageView fx:id="photoIV" fitHeight="150.0" fitWidth="200.0" layoutX="366.0" layoutY="188.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </Pane>
    </children>
