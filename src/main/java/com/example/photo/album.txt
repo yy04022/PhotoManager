@@ -1,4 +1,3 @@
-admin,album1,null,null
-user1,album1,sample photo/IMG_1285.jpeg,null
-user1,album2,null,null
-user1,album1,null,null
+album2
+album1
+user1,album12,null,null

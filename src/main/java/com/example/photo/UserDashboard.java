@@ -16,9 +16,9 @@ import java.util.*;
 
 public class UserDashboard extends Controller implements Initializable {
     public TextField albumNameTF;
+
+
     private int selectedUserIndex = 0;
-
-
     @FXML
     public ListView<Album> albumList;
 
@@ -113,6 +113,24 @@ public class UserDashboard extends Controller implements Initializable {
     }
 
     public void deleteAlbumButtonClick(ActionEvent actionEvent) {
+
+        Album deleteAlbum = albumList.getSelectionModel().getSelectedItem();
+        albumList.getItems().remove(deleteAlbum);
+        albumData.remove(deleteAlbum);
+        albumList.getSelectionModel().select(deleteAlbum);
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Album album : albumData) {
+            stringBuilder.append(album.getAlbumName()).append("\n");
+        }
+        try {
+
+            FileWriter fileWriter = new FileWriter("src/main/java/com/example/photo/album.txt", false);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            bufferedWriter.write(stringBuilder.toString());
+            bufferedWriter.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void editAlbumButtonClick(ActionEvent actionEvent) {

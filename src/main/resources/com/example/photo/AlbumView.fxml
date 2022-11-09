@@ -2,11 +2,13 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="535.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.photo.AlbumView">
@@ -17,7 +19,6 @@
             <Label layoutX="7.0" layoutY="54.0" text="Photo Name" />
             <Label layoutX="5.0" layoutY="89.0" text="Album Name" />
             <Label layoutX="7.0" layoutY="128.0" text="Caption" />
-            <ListView fx:id="photoLv" layoutX="3.0" layoutY="188.0" prefHeight="319.0" prefWidth="357.0" />
             <TextField fx:id="photoNameTF" layoutX="84.0" layoutY="50.0" prefHeight="26.0" prefWidth="328.0" />
             <TextField fx:id="albumNameTF" layoutX="84.0" layoutY="84.0" prefHeight="26.0" prefWidth="328.0" />
             <TextField fx:id="captionNameTF" layoutX="84.0" layoutY="122.0" prefHeight="26.0" prefWidth="328.0" />
@@ -35,7 +36,74 @@
             <TextField fx:id="locationTF" layoutX="455.0" layoutY="123.0" prefHeight="26.0" prefWidth="108.0" />
             <Label layoutX="455.0" layoutY="98.0" prefHeight="17.0" prefWidth="127.0" text="Desitinated Location" />
             <Button layoutX="455.0" layoutY="54.0" mnemonicParsing="false" onAction="#openPhotoButtonClick" prefHeight="35.0" prefWidth="108.0" text="Open Photo" />
-            <ImageView fx:id="photoIV" fitHeight="150.0" fitWidth="200.0" layoutX="366.0" layoutY="188.0" pickOnBounds="true" preserveRatio="true" />
+            <GridPane fx:id="photoGp" layoutX="40.0" layoutY="191.0" prefHeight="278.0" prefWidth="521.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="295.0" minWidth="10.0" prefWidth="262.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="387.0" minWidth="10.0" prefWidth="259.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="387.0" minWidth="10.0" prefWidth="259.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="93.0" minHeight="10.0" prefHeight="93.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="92.0" minHeight="10.0" prefHeight="92.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Pane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fx:id="photoIV" fitHeight="75.0" fitWidth="89.0" layoutX="47.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label layoutX="73.0" layoutY="71.0" text="Label" />
+                     </children>
+                  </Pane>
+                  <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+                     <children>
+                        <ImageView fx:id="photoIV1" fitHeight="75.0" fitWidth="89.0" layoutX="47.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label layoutX="73.0" layoutY="75.0" text="Label" />
+                     </children>
+                  </Pane>
+                  <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+                     <children>
+                        <ImageView fx:id="photoIV2" fitHeight="75.0" fitWidth="89.0" layoutX="43.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label layoutX="73.0" layoutY="72.0" text="Label" />
+                     </children>
+                  </Pane>
+                  <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+                     <children>
+                        <ImageView fx:id="photoIV3" fitHeight="75.0" fitWidth="80.0" layoutX="55.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label layoutX="72.0" layoutY="72.0" text="Label" />
+                     </children>
+                  </Pane>
+                  <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <children>
+                        <ImageView fx:id="photoIV4" fitHeight="75.0" fitWidth="80.0" layoutX="46.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label layoutX="72.0" layoutY="71.0" text="Label" />
+                     </children>
+                  </Pane>
+                  <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <children>
+                        <ImageView fx:id="photoIV5" fitHeight="75.0" fitWidth="89.0" layoutX="42.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label layoutX="72.0" layoutY="70.0" text="Label" />
+                     </children>
+                  </Pane>
+                  <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
+                     <children>
+                        <ImageView fx:id="photoIV51" fitHeight="75.0" fitWidth="96.0" layoutX="50.0" layoutY="-5.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label layoutX="72.0" layoutY="71.0" text="Label" />
+                     </children>
+                  </Pane>
+                  <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                     <children>
+                        <ImageView fx:id="photoIV52" fitHeight="75.0" fitWidth="96.0" layoutX="39.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label layoutX="72.0" layoutY="71.0" text="Label" />
+                     </children>
+                  </Pane>
+                  <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                     <children>
+                        <ImageView fx:id="photoIV53" fitHeight="75.0" fitWidth="96.0" layoutX="45.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label layoutX="78.0" layoutY="70.0" text="Label" />
+                     </children>
+                  </Pane>
+               </children>
+            </GridPane>
          </children>
       </Pane>
    </children>

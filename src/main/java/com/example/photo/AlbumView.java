@@ -6,20 +6,19 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.HashSet;
 import java.util.ResourceBundle;
 
 public class AlbumView extends Controller implements Initializable {
-    public ListView<Album> photoLv;
+
 
     public TextField photoNameTF;
     public TextField albumNameTF;
@@ -27,29 +26,30 @@ public class AlbumView extends Controller implements Initializable {
     public ObservableList<Album> filiteredAlbumData = FXCollections.observableArrayList();
     public ImageView photoIV;
     public TextField locationTF;
+    public GridPane photoGp;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        photoLv.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Album>() {
-
-
-            @Override
-            public void changed(ObservableValue<? extends Album> observable, Album oldValue, Album newValue) {
-                // Your action here
-                try {
-                    String albumName = newValue.getAlbumName();
-                    albumNameTF.setText(albumName);
-                    photoNameTF.setText(newValue.getImagePath());
-                    captionNameTF.setText(newValue.getCaption());
-                    displayImage(newValue.getImagePath());
-                } catch (NullPointerException e) {
-
-                }
-
-            }
-
-        });
+//        photoGp.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Album>() {
+//
+//
+//            @Override
+//            public void changed(ObservableValue<? extends Album> observable, Album oldValue, Album newValue) {
+//                // Your action here
+//                try {
+//                    String albumName = newValue.getAlbumName();
+//                    albumNameTF.setText(albumName);
+//                    photoNameTF.setText(newValue.getImagePath());
+//                    captionNameTF.setText(newValue.getCaption());
+//                    displayImage(newValue.getImagePath());
+//                } catch (NullPointerException e) {
+//
+//                }
+//
+//            }
+//
+//        });
         //todo;figure out why there's duplicate photo display
         for(int i = 0;i<albumData.size();i++){
 
@@ -58,7 +58,7 @@ public class AlbumView extends Controller implements Initializable {
             }
 
         }
-        photoLv.setItems(filiteredAlbumData);
+        photoGp.setUserData(filiteredAlbumData);
     }
     public void displayImage(String imagePath){
         InputStream stream = null;
