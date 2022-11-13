@@ -3,7 +3,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -11,18 +10,18 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="535.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.photo.AlbumView">
+<AnchorPane fx:id="albumAnchorPane" prefHeight="535.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.photo.AlbumView">
    <children>
       <Pane layoutY="-8.0" prefHeight="516.0" prefWidth="600.0">
          <children>
-            <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Back" />
+            <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#backButtonClick" text="Back" />
             <Label layoutX="7.0" layoutY="54.0" text="Photo Name" />
             <Label layoutX="5.0" layoutY="89.0" text="Album Name" />
             <Label layoutX="7.0" layoutY="128.0" text="Caption" />
             <TextField fx:id="photoNameTF" layoutX="84.0" layoutY="50.0" prefHeight="26.0" prefWidth="328.0" />
             <TextField fx:id="albumNameTF" layoutX="84.0" layoutY="84.0" prefHeight="26.0" prefWidth="328.0" />
             <TextField fx:id="captionNameTF" layoutX="84.0" layoutY="122.0" prefHeight="26.0" prefWidth="328.0" />
-            <Button layoutX="516.0" layoutY="15.0" mnemonicParsing="false" text="Logout" textFill="#c32222" />
+            <Button layoutX="516.0" layoutY="15.0" mnemonicParsing="false" onAction="#logoutButtonClick" text="Logout" textFill="#c32222" />
             <Label layoutX="199.0" layoutY="14.0" text="Album Display">
                <font>
                   <Font size="24.0" />
@@ -47,62 +46,6 @@
                 <RowConstraints maxHeight="93.0" minHeight="10.0" prefHeight="93.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="92.0" minHeight="10.0" prefHeight="92.0" vgrow="SOMETIMES" />
               </rowConstraints>
-               <children>
-                  <Pane prefHeight="200.0" prefWidth="200.0">
-                     <children>
-                        <ImageView fx:id="photoIV" fitHeight="75.0" fitWidth="89.0" layoutX="47.0" pickOnBounds="true" preserveRatio="true" />
-                        <Label layoutX="73.0" layoutY="71.0" text="Label" />
-                     </children>
-                  </Pane>
-                  <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
-                     <children>
-                        <ImageView fx:id="photoIV1" fitHeight="75.0" fitWidth="89.0" layoutX="47.0" pickOnBounds="true" preserveRatio="true" />
-                        <Label layoutX="73.0" layoutY="75.0" text="Label" />
-                     </children>
-                  </Pane>
-                  <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
-                     <children>
-                        <ImageView fx:id="photoIV2" fitHeight="75.0" fitWidth="89.0" layoutX="43.0" pickOnBounds="true" preserveRatio="true" />
-                        <Label layoutX="73.0" layoutY="72.0" text="Label" />
-                     </children>
-                  </Pane>
-                  <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
-                     <children>
-                        <ImageView fx:id="photoIV3" fitHeight="75.0" fitWidth="80.0" layoutX="55.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
-                        <Label layoutX="72.0" layoutY="72.0" text="Label" />
-                     </children>
-                  </Pane>
-                  <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                     <children>
-                        <ImageView fx:id="photoIV4" fitHeight="75.0" fitWidth="80.0" layoutX="46.0" pickOnBounds="true" preserveRatio="true" />
-                        <Label layoutX="72.0" layoutY="71.0" text="Label" />
-                     </children>
-                  </Pane>
-                  <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                     <children>
-                        <ImageView fx:id="photoIV5" fitHeight="75.0" fitWidth="89.0" layoutX="42.0" pickOnBounds="true" preserveRatio="true" />
-                        <Label layoutX="72.0" layoutY="70.0" text="Label" />
-                     </children>
-                  </Pane>
-                  <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
-                     <children>
-                        <ImageView fx:id="photoIV51" fitHeight="75.0" fitWidth="96.0" layoutX="50.0" layoutY="-5.0" pickOnBounds="true" preserveRatio="true" />
-                        <Label layoutX="72.0" layoutY="71.0" text="Label" />
-                     </children>
-                  </Pane>
-                  <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                     <children>
-                        <ImageView fx:id="photoIV52" fitHeight="75.0" fitWidth="96.0" layoutX="39.0" pickOnBounds="true" preserveRatio="true" />
-                        <Label layoutX="72.0" layoutY="71.0" text="Label" />
-                     </children>
-                  </Pane>
-                  <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
-                     <children>
-                        <ImageView fx:id="photoIV53" fitHeight="75.0" fitWidth="96.0" layoutX="45.0" pickOnBounds="true" preserveRatio="true" />
-                        <Label layoutX="78.0" layoutY="70.0" text="Label" />
-                     </children>
-                  </Pane>
-               </children>
             </GridPane>
          </children>
       </Pane>

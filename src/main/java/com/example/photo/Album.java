@@ -68,14 +68,15 @@ public class Album {
 
     @Override
     public String toString() {
-        return " albumname: " + getAlbumName() ;
+        return  getAlbumName() ;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Album album = (Album) o;
-        return getUser().equals(album.getUser())&& getAlbumName().equals(album.getAlbumName());
-    }
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//        Album album = (Album) o;
+//        return getUser().equals(album.getUser())&& getAlbumName().equals(album.getAlbumName());
+//    }
+
 }

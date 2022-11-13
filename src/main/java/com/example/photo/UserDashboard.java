@@ -18,7 +18,7 @@ public class UserDashboard extends Controller implements Initializable {
     public TextField albumNameTF;
 
 
-    private int selectedUserIndex = 0;
+    private int selectedAlbumIndex = 0;
     @FXML
     public ListView<Album> albumList;
 
@@ -36,7 +36,7 @@ public class UserDashboard extends Controller implements Initializable {
                     String albumName = newValue.getAlbumName();
                     albumNameTF.setText(albumName);
                     selectedAlbum = albumName;
-                    selectedUserIndex = albumList.getSelectionModel().getSelectedIndex();
+                    selectedAlbumIndex = albumList.getSelectionModel().getSelectedIndex();
 
                 } catch (NullPointerException e) {
 
@@ -100,15 +100,43 @@ public class UserDashboard extends Controller implements Initializable {
 
 
     }
+    public void editText(){
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Album album:albumData) {
+            stringBuilder.append(album.getUser()).append(",")
+                    .append(album.getAlbumName()).append(",")
+                    .append(album.getImagePath()).append(",")
+                    .append(album.getCaption()).append("\n");
+        }
+        try {
+
+            FileWriter fileWriter = new FileWriter("src/main/java/com/example/photo/album.txt",false);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            bufferedWriter.write(stringBuilder.toString());
+            bufferedWriter.close();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
     public void createAlbumButtonClick(ActionEvent actionEvent) {
         String username = loginUser;
         String albumName = albumNameTF.getText();
+        boolean duplicate = false;
         Album newAlbum = new Album(username, albumName,"null","null");
-
-            albumData.add(newAlbum);
-            albumList.setItems(albumData);
+        for(Album album: albumData) {
+           if(album.getAlbumName().equals(albumName) ){
+               System.out.println("Duplicate");
+               duplicate = true;
+               break;
+           }
+        }
+        if(!duplicate) {
             albumNameTF.clear();
             writeText(newAlbum);
+            setupAlbum();
+        }
 
     }
 
@@ -120,7 +148,8 @@ public class UserDashboard extends Controller implements Initializable {
         albumList.getSelectionModel().select(deleteAlbum);
         StringBuilder stringBuilder = new StringBuilder();
         for (Album album : albumData) {
-            stringBuilder.append(album.getAlbumName()).append("\n");
+
+            stringBuilder.append(album.getUser()+","+ album.getAlbumName()+","+album.getImagePath()+","+album.getCaption()).append("\n");
         }
         try {
 
@@ -128,26 +157,38 @@ public class UserDashboard extends Controller implements Initializable {
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             bufferedWriter.write(stringBuilder.toString());
             bufferedWriter.close();
+            albumNameTF.clear();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
     }
 
     public void editAlbumButtonClick(ActionEvent actionEvent) {
         StringBuilder stringBuilder = new StringBuilder();
-        for (Album album: albumData) {
-            stringBuilder.append(album.getUser()).append(",")
-                    .append(album.getUser()).append("\n");
-        }
-        try {
+        String newAlbumName = albumNameTF.getText();
+        String prevImagePath = albumData.get(selectedAlbumIndex).getImagePath();
 
-            FileWriter fileWriter = new FileWriter("src/main/java/com/example/photo/album.txt",false);
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            bufferedWriter.write(stringBuilder.toString());
-            bufferedWriter.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        String prevCaption = albumData.get(selectedAlbumIndex).getCaption();
+
+        Album newAlbum = new Album(loginUser,newAlbumName,prevImagePath,prevCaption);
+        Album originalAlbum = albumData.get(selectedAlbumIndex);
+
+
+        for (int i = 0; i < albumData.size(); i++) {
+            if (originalAlbum.getAlbumName().equals(newAlbumName)) {
+
+                break;
+            }
+            else{
+                albumData.set(selectedAlbumIndex,newAlbum);
+                albumList.getFocusModel().focus(0);
+                albumList.setItems(albumData);
+                editText();
+                albumNameTF.clear();
+            }
+
+            }
     }
 
     public void openAlbumButtonClick(ActionEvent actionEvent) {
@@ -162,6 +203,8 @@ public class UserDashboard extends Controller implements Initializable {
     }
 
     public void onLogoutButtonClick(ActionEvent actionEvent) {
+        loginUser =null;
+
         loadPage("Login.fxml","Login",actionEvent);
     }
 

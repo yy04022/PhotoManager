@@ -1,2 +1,4 @@
 admin
 user1
+
+user2

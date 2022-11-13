@@ -9,6 +9,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 
 public class Controller {
@@ -25,5 +27,24 @@ public class Controller {
         }
         stage.setTitle(title);
         stage.setScene(new Scene(scene));
+    }
+    public void writeText(){
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Album album:albumData) {
+            stringBuilder.append(album.getUser()).append(",")
+                    .append(album.getAlbumName()).append(",")
+                    .append(album.getImagePath()).append(",")
+                    .append(album.getCaption()).append("\n");
+        }
+        try {
+
+            FileWriter fileWriter = new FileWriter("src/main/java/com/example/photo/album.txt",false);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            bufferedWriter.write(stringBuilder.toString());
+            bufferedWriter.close();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
