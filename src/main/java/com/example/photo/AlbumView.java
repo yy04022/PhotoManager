@@ -25,13 +25,14 @@ public class AlbumView extends Controller implements Initializable {
 
 
     public TextField photoNameTF;
-    public TextField albumNameTF;
+   
     public TextField captionNameTF;
     public ObservableList<Album> filiteredAlbumData = FXCollections.observableArrayList();
 
     public TextField locationTF;
     public GridPane photoGp;
     public AnchorPane albumAnchorPane;
+    public Label albumNameTF;
     int selectedThumbNailIndex;
 
 
@@ -154,8 +155,10 @@ public class AlbumView extends Controller implements Initializable {
             caption = album.getCaption();
             this.index = index;
             setOnMouseClicked(e->{
+                photoNameTF.setText(imagePath);
+                captionNameTF.setText(caption);
+
                 selectedThumbNailIndex = this.index;
-                System.out.println(selectedThumbNailIndex);
             });
         }
     }
@@ -225,6 +228,14 @@ public class AlbumView extends Controller implements Initializable {
     }
 
     public void captionButtonClick(ActionEvent actionEvent) {
+        if(selectedThumbNailIndex!=1){
+            String caption = captionNameTF.getText();
+            Album editAlbum = filiteredAlbumData.get(selectedThumbNailIndex);
+            editAlbum.setCaption(caption);
+            writeText();
+            refresh();
+
+        }
     }
 
     public void moveLocationButtonClick(ActionEvent actionEvent) {

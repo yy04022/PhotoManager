@@ -15,11 +15,10 @@
       <Pane layoutY="-8.0" prefHeight="516.0" prefWidth="600.0">
          <children>
             <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#backButtonClick" text="Back" />
-            <Label layoutX="7.0" layoutY="54.0" text="Photo Name" />
-            <Label layoutX="5.0" layoutY="89.0" text="Album Name" />
+            <Label layoutX="6.0" layoutY="90.0" text="Photo Name" />
+            <Label layoutX="5.0" layoutY="63.0" text="Album Name" />
             <Label layoutX="7.0" layoutY="128.0" text="Caption" />
-            <TextField fx:id="photoNameTF" layoutX="84.0" layoutY="50.0" prefHeight="26.0" prefWidth="328.0" />
-            <TextField fx:id="albumNameTF" layoutX="84.0" layoutY="84.0" prefHeight="26.0" prefWidth="328.0" />
+            <TextField fx:id="photoNameTF" layoutX="84.0" layoutY="86.0" prefHeight="26.0" prefWidth="328.0" />
             <TextField fx:id="captionNameTF" layoutX="84.0" layoutY="122.0" prefHeight="26.0" prefWidth="328.0" />
             <Button layoutX="516.0" layoutY="15.0" mnemonicParsing="false" onAction="#logoutButtonClick" text="Logout" textFill="#c32222" />
             <Label layoutX="199.0" layoutY="14.0" text="Album Display">
@@ -47,6 +46,7 @@
                 <RowConstraints maxHeight="92.0" minHeight="10.0" prefHeight="92.0" vgrow="SOMETIMES" />
               </rowConstraints>
             </GridPane>
+            <Label fx:id="albumNameTF" layoutX="84.0" layoutY="63.0" prefHeight="17.0" prefWidth="89.0" text="Label" />
          </children>
       </Pane>
    </children>
