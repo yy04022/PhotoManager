@@ -3,15 +3,19 @@ package com.example.photo;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Optional;
 
 public class Controller {
     public static String loginUser;
@@ -27,6 +31,32 @@ public class Controller {
         }
         stage.setTitle(title);
         stage.setScene(new Scene(scene));
+    }
+    @FXML
+    void showAlertAddDialog(ActionEvent event,String message){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Alert!");
+        alert.setContentText(message);
+        alert.show();
+
+
+    }
+    @FXML
+    String showDialog(ActionEvent event){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Alert!");
+        alert.setContentText("Are you sure to make this change?");
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if(result.isEmpty()){
+            return "cancel";
+        } else if (result.get()== ButtonType.OK) {
+            return "ok";
+        } else if (result.get()== ButtonType.CANCEL) {
+            return "cancel";
+
+        }
+        return "cancel";
     }
     public void writeText(){
         StringBuilder stringBuilder = new StringBuilder();

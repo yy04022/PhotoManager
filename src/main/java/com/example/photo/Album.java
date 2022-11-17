@@ -79,4 +79,6 @@ public class Album {
 //        return getUser().equals(album.getUser())&& getAlbumName().equals(album.getAlbumName());
 //    }
 
+
+
 }

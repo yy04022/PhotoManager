@@ -25,7 +25,7 @@ public class AlbumView extends Controller implements Initializable {
 
 
     public TextField photoNameTF;
-   
+
     public TextField captionNameTF;
     public ObservableList<Album> filiteredAlbumData = FXCollections.observableArrayList();
 
@@ -80,17 +80,17 @@ public class AlbumView extends Controller implements Initializable {
     }
     public void setAllThumbNail(){
         double thumbnailSize = filiteredAlbumData.size();
+
         if(thumbnailSize>9){
             thumbnailSize= 9;
         }
-        System.out.println("thumbnailsize:"+thumbnailSize);
         double row= getRow(thumbnailSize);
-        System.out.println("row"+row);
+
         double col = getCol(thumbnailSize);
-        System.out.println("col"+col);
+
         int count=0;
         for(int i = 0; i<row;i++){
-            System.out.println("count:"+count);
+
             if(count == 9){
                 break;
             }
@@ -98,13 +98,11 @@ public class AlbumView extends Controller implements Initializable {
                 for(int j =0;j< 3;j++){
                     displayThumbNail(i,j,count);
                     count++;
-                    System.out.println("if"+i + "," + j);
                 }
             } else{
                 for(int j =0;j<col;j++){
                     displayThumbNail(i,j,count);
                     count++;
-                    System.out.println("if"+i + "," + j);
                 }
             }
         }
@@ -232,19 +230,94 @@ public class AlbumView extends Controller implements Initializable {
             String caption = captionNameTF.getText();
             Album editAlbum = filiteredAlbumData.get(selectedThumbNailIndex);
             editAlbum.setCaption(caption);
+
+            for(int i = 0; i<albumData.size();i++){
+                if(albumData.get(i).getImagePath().equals(editAlbum.getImagePath())){
+                    albumData.get(i).setCaption(caption);
+                }
+            }
             writeText();
             refresh();
-
         }
+
     }
 
     public void moveLocationButtonClick(ActionEvent actionEvent) {
+
+
+        if(selectedThumbNailIndex!=-1 && !locationTF.getText().isEmpty()) {
+            String destinationLocation = locationTF.getText();
+            Album deleteAlbum = filiteredAlbumData.get(selectedThumbNailIndex);
+            String newAlbumName = destinationLocation;
+            String newAlbumUser = deleteAlbum.getUser();
+            String newAlbumImagePath = deleteAlbum.getImagePath();
+            String newAlbumCaption = deleteAlbum.getCaption();
+            Album newAlbum = new Album(newAlbumUser,newAlbumName,newAlbumImagePath,newAlbumCaption);
+
+            boolean albumCreated = false;
+
+            for (int i = 0; i < albumData.size(); i++) {
+                if(albumData.get(i).getAlbumName().equals(destinationLocation)) {
+                    albumCreated = true;
+                }
+            }
+            if(albumCreated){
+                System.out.println("delete"+deleteAlbum.getAlbumName()+","+deleteAlbum.getImagePath());
+                albumData.remove(deleteAlbum);
+                albumData.add(newAlbum);
+                writeText();
+                refresh();
+                System.out.println(newAlbum.getUser() + newAlbum.getAlbumName() + newAlbum.getImagePath() + newAlbum.getCaption());
+
+            } else if (!albumCreated) {
+                locationTF.clear();
+                showAlertAddDialog(actionEvent,"This Album doesn't exist!");
+            }
+
+
+        } else if (selectedThumbNailIndex==-1 && locationTF.getText().isEmpty()) {
+            showAlertAddDialog(actionEvent, "You need to select a photo and enter a album name!");
+        }else if (selectedThumbNailIndex==-1) {
+            showAlertAddDialog(actionEvent,"You need to select a photo!");
+        }
     }
 
     public void copyLocationButtonlick(ActionEvent actionEvent) {
+        if(selectedThumbNailIndex!=-1 && !locationTF.getText().isEmpty()) {
+            String destinationLocation = locationTF.getText();
+            String user = loginUser;
+            String albumName = destinationLocation;
+            String imagePath = filiteredAlbumData.get(selectedThumbNailIndex).getImagePath();
+            String caption = filiteredAlbumData.get(selectedThumbNailIndex).getCaption();
+            Album newAlbum = new Album(user, albumName, imagePath, caption);
+           boolean albumCreated = false;
+
+            for (int i = 0; i < albumData.size(); i++) {
+                if(albumData.get(i).getAlbumName().equals(destinationLocation)) {
+                    albumCreated = true;
+                }
+            }
+            if(albumCreated== true){
+                albumData.add(newAlbum);
+                writeText();
+                System.out.println(newAlbum.getUser() + newAlbum.getAlbumName() + newAlbum.getImagePath() + newAlbum.getCaption());
+                refresh();
+            }else if (!albumCreated) {
+                locationTF.clear();
+                showAlertAddDialog(actionEvent,"This Album doesn't exist!");
+            }
+
+
+        } else if (selectedThumbNailIndex==-1 && locationTF.getText().isEmpty()) {
+            showAlertAddDialog(actionEvent,"You need to select a photo and enter a album name!");
+        } else if (selectedThumbNailIndex==-1) {
+            showAlertAddDialog(actionEvent,"You need to select a photo!");
+        }
+
     }
 
     public void openPhotoButtonClick(ActionEvent actionEvent) {
+        loadPage("com/example/photo/PhotoView.fxml","PhotoView",actionEvent);
     }
 
 

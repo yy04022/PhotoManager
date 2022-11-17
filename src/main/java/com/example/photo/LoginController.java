@@ -29,11 +29,16 @@ public class LoginController extends Controller {
             if(username.equals(input) && input.equals("admin")){
                 loginUser = username;
                 loadPage("Adminpage.fxml","AdminController",actionEvent);
+                break;
             }else if(username.equals(input)){
                 loginUser = username;
                 loadPage("UserDashboard.fxml","UserDashboard",actionEvent);
+                break;
+            }else if(!username.equals(input)&& !scanner.hasNext()){
+                showAlertAddDialog(actionEvent,"Invalid Username!");
             }
         }
+
 
 
     }

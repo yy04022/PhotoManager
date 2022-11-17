@@ -78,44 +78,48 @@ public class AdminController extends Controller {
 
     }
     public void deleteUserButtonClick(ActionEvent actionEvent) {
-        User deleteUser = userList.getSelectionModel().getSelectedItem();
-        userList.getItems().remove(deleteUser);
-        data.remove(deleteUser);
-       userList.getSelectionModel().select(deleteUser);
-        StringBuilder stringBuilder = new StringBuilder();
-        for (User user : data) {
-            stringBuilder.append(user.getUsername()).append("\n");
-        }
-        try {
+        String confirmation=showDialog(actionEvent);
+        if(confirmation.equals("ok")) {
+            User deleteUser = userList.getSelectionModel().getSelectedItem();
+            userList.getItems().remove(deleteUser);
+            data.remove(deleteUser);
+            userList.getSelectionModel().select(deleteUser);
+            StringBuilder stringBuilder = new StringBuilder();
+            for (User user : data) {
+                stringBuilder.append(user.getUsername()).append("\n");
+            }
+            try {
 
-            FileWriter fileWriter = new FileWriter("src/main/java/com/example/photo/users.txt", false);
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            bufferedWriter.write(stringBuilder.toString());
-            bufferedWriter.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+                FileWriter fileWriter = new FileWriter("src/main/java/com/example/photo/users.txt", false);
+                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+                bufferedWriter.write(stringBuilder.toString());
+                bufferedWriter.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
-
     }
 
     public void listUserButtonClick(ActionEvent actionEvent) {
-
+        data.clear();
         setupTable();
     }
 
     public void addUserButtonClick(ActionEvent actionEvent) {
         String username = userNameTF.getText();
         User newUser = new User(username);
-        if(data.contains(newUser)){
-            System.out.println("duplicate user");
-        }else{
-            data.add(newUser);
-            userList.setItems(data);
-            userNameTF.clear();
+        String confirmation=showDialog(actionEvent);
+        if(confirmation.equals("ok")&& !userNameTF.getText().isEmpty()) {
+            if (data.contains(newUser)) {
+                System.out.println("duplicate user");
+            } else {
+                data.add(newUser);
+                userList.setItems(data);
+                userNameTF.clear();
 
-            writeText(newUser);
+                writeText(newUser);
+            }
         }
-
     }
 
     public void onLogoutButtonClick(ActionEvent actionEvent) {
