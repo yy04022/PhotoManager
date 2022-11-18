@@ -1,5 +1,5 @@
-user1,data/stock/apple.jpeg,loc,m
-user1,C:\Users\lapus\OneDrive\Pictures\Saved Pictures\denmark.png,loc,m
-user1,C:\Users\lapus\OneDrive\Pictures\MoviePictures\Batman begins.jpg,loc,m
-user1,C:\Users\lapus\OneDrive\Pictures\Saved Pictures\speeder.jpg,loc,m
-user1,C:\Users\lapus\OneDrive\Pictures\Saved Pictures\sail.png,loc,m
+user1,data/stock/apple.jpeg,null,null
+user1,C:\Users\lapus\OneDrive\Pictures\Saved Pictures\denmark.png,null,null
+user1,C:\Users\lapus\OneDrive\Pictures\MoviePictures\Batman begins.jpg,null,null
+user1,C:\Users\lapus\OneDrive\Pictures\Saved Pictures\speeder.jpg,q,c
+user1,C:\Users\lapus\OneDrive\Pictures\Saved Pictures\sail.png,null,null

@@ -11,6 +11,8 @@ public class Album {
     SimpleStringProperty imagePath = new SimpleStringProperty();
     SimpleStringProperty caption= new SimpleStringProperty();
     SimpleStringProperty date = new SimpleStringProperty();
+    SimpleStringProperty tagType = new SimpleStringProperty();
+    SimpleStringProperty tagValue = new SimpleStringProperty();
     public Album(String user, String albumName,String imagePath, String caption, String date){
         setUser(user);
         setAlbumName(albumName);
@@ -29,14 +31,27 @@ public class Album {
     //    this.listOfTags.add(s);
     //}
 
+    public String getTagType(){
+        return tagType.get();
+    }
+
+    public void setTagType(String t){
+        this.tagType.set(t);
+    }
+
+    public String getTagValue(){
+        return tagValue.get();
+    }
+
+    public void setTagValue(String t){
+        this.tagValue.set(t);
+    }
+
     public String getDate(){
         return date.get();
     }
 
     public void setDate(String sd){
-        //Date d = Calendar.getInstance().getTime();
-        //DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
-        //String sd = dateFormat.format(d);
         this.date.set(sd);
     }
 

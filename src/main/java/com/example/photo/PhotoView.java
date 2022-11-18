@@ -9,16 +9,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 import javafx.scene.image.Image;
 
-import java.io.BufferedWriter;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 
 //import javax.management.RuntimeErrorException;
 
@@ -72,18 +69,13 @@ public class PhotoView extends Controller implements Initializable{
         dateLabel.setText(filteredAlbumData.get(num).getDate());
     }
 
-    public void displayTags(int num){
-        //listOfTags.getItems().clear();
-
-    }
-
-    public void writeTag(String type, String value){
+    public void writeTag(){
         StringBuilder stringBuilder = new StringBuilder();
         for(Album album:filteredAlbumData){
             stringBuilder.append(album.getUser()).append(",")
                     .append(album.getImagePath()).append(",")
-                    .append(type).append(",")
-                    .append(value).append("\n");
+                    .append(album.getTagType()).append(",")
+                    .append(album.getTagValue()).append("\n");
         }
         try{
             FileWriter fileWriter = new FileWriter("src/main/java/com/example/photo/photo.txt",false);
@@ -95,11 +87,31 @@ public class PhotoView extends Controller implements Initializable{
         }
     }
 
+    public void readTag() {
+        File file = new File("src/main/java/com/example/photo/photo.txt");
+        Scanner input = null;
+        try {
+            input = new Scanner(file);
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        while(input.hasNext()){
+            String line = input.nextLine();
+            String [] array = line.split(",");
+            if(filteredAlbumData.get(index).getImagePath().equals(array[1])){// checks each to find imagepath match
+                listOfTags.getItems().add(array[2]+", "+array[3]);
+            }
+        }
+    }
+
     public void setNextPhotoButtonClick(ActionEvent actionEvent) {
         if(index<filteredAlbumData.size()-1){
             index++;
             displayImage(index);
             displayData(index);
+            listOfTags.getItems().clear();
+            readTag();
         }
     }
 
@@ -108,15 +120,20 @@ public class PhotoView extends Controller implements Initializable{
             index--;
             displayImage(index);
             displayData(index);
+            listOfTags.getItems().clear();
+            readTag();
         }
     }
 
     public void onAddTagButtonClick(ActionEvent actionEvent) {
         String type = tageTypeTF.getText();
         String value = tagValueTF.getText();
-        writeTag(type, value);
-        //String tag = type+", "+value;
-        //listOfTags.getItems().add(tag);
+        tageTypeTF.clear();
+        tagValueTF.clear();
+        filteredAlbumData.get(index).setTagType(type);
+        filteredAlbumData.get(index).setTagValue(value);
+        writeTag();
+        readTag();
     }
 
     public void onDeleteButtonClick(ActionEvent actionEvent) {
