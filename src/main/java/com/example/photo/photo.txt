@@ -1,0 +1,5 @@
+user1,data/stock/apple.jpeg,loc,m
+user1,C:\Users\lapus\OneDrive\Pictures\Saved Pictures\denmark.png,loc,m
+user1,C:\Users\lapus\OneDrive\Pictures\MoviePictures\Batman begins.jpg,loc,m
+user1,C:\Users\lapus\OneDrive\Pictures\Saved Pictures\speeder.jpg,loc,m
+user1,C:\Users\lapus\OneDrive\Pictures\Saved Pictures\sail.png,loc,m

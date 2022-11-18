@@ -11,11 +11,16 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 
+import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+//import javax.management.RuntimeErrorException;
 
 public class PhotoView extends Controller implements Initializable{
 
@@ -31,10 +36,6 @@ public class PhotoView extends Controller implements Initializable{
     public int index = photoIndex;
 
     public ListView<String> listOfTags;
-
-    //private ObservableList<String> listOfTags = FXCollections.observableArrayList();
-    //public ListView<String> listView = new ListView<String>(listOfTags);
-    //public ListView<String> listView = new ListView<String>();
 
     public void initialize(URL url, ResourceBundle resourceBundle){
         filterData();
@@ -72,11 +73,26 @@ public class PhotoView extends Controller implements Initializable{
     }
 
     public void displayTags(int num){
+        //listOfTags.getItems().clear();
 
     }
 
-    public void saveTag(int num){
-        
+    public void writeTag(String type, String value){
+        StringBuilder stringBuilder = new StringBuilder();
+        for(Album album:filteredAlbumData){
+            stringBuilder.append(album.getUser()).append(",")
+                    .append(album.getImagePath()).append(",")
+                    .append(type).append(",")
+                    .append(value).append("\n");
+        }
+        try{
+            FileWriter fileWriter = new FileWriter("src/main/java/com/example/photo/photo.txt",false);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            bufferedWriter.write(stringBuilder.toString());
+            bufferedWriter.close();
+        }catch(IOException e){
+            throw new RuntimeException(e);
+        }
     }
 
     public void setNextPhotoButtonClick(ActionEvent actionEvent) {
@@ -98,10 +114,9 @@ public class PhotoView extends Controller implements Initializable{
     public void onAddTagButtonClick(ActionEvent actionEvent) {
         String type = tageTypeTF.getText();
         String value = tagValueTF.getText();
-        String tag = type+", "+value;
-        listOfTags.getItems().add(tag);
-        //listView.setItems(listOfTags);
-        //listView.getItems().add(type+", "+value);
+        writeTag(type, value);
+        //String tag = type+", "+value;
+        //listOfTags.getItems().add(tag);
     }
 
     public void onDeleteButtonClick(ActionEvent actionEvent) {
