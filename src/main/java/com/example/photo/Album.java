@@ -1,6 +1,8 @@
 package com.example.photo;
 
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class Album {
 
@@ -8,13 +10,35 @@ public class Album {
     SimpleStringProperty albumName = new SimpleStringProperty();
     SimpleStringProperty imagePath = new SimpleStringProperty();
     SimpleStringProperty caption= new SimpleStringProperty();
-    public Album(String user, String albumName,String imagePath, String caption){
+    SimpleStringProperty date = new SimpleStringProperty();
+    public Album(String user, String albumName,String imagePath, String caption, String date){
         setUser(user);
         setAlbumName(albumName);
         setImagePath(imagePath);
         setCaption(caption);
+        setDate(date);
     }
 
+    //ObservableList<String> listOfTags = FXCollections.observableArrayList();
+
+    //public ObservableList getTagList(){
+    //    return listOfTags;
+    //}
+
+    //public void setTags(String s){
+    //    this.listOfTags.add(s);
+    //}
+
+    public String getDate(){
+        return date.get();
+    }
+
+    public void setDate(String sd){
+        //Date d = Calendar.getInstance().getTime();
+        //DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+        //String sd = dateFormat.format(d);
+        this.date.set(sd);
+    }
 
     public String getCaption() {
         return caption.get();

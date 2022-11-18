@@ -18,6 +18,8 @@ import java.io.IOException;
 import java.util.Optional;
 
 public class Controller {
+    public static int photoIndex;
+
     public static String loginUser;
     public static String selectedAlbum;
     public static ObservableList<Album> albumData = FXCollections.observableArrayList();
@@ -64,7 +66,8 @@ public class Controller {
             stringBuilder.append(album.getUser()).append(",")
                     .append(album.getAlbumName()).append(",")
                     .append(album.getImagePath()).append(",")
-                    .append(album.getCaption()).append("\n");
+                    .append(album.getCaption()).append(",")
+                    .append(album.getDate()).append("\n");
         }
         try {
 

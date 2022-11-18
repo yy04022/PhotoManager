@@ -19,6 +19,10 @@ import javafx.stage.FileChooser;
 
 import java.io.*;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class AlbumView extends Controller implements Initializable {
@@ -207,7 +211,11 @@ public class AlbumView extends Controller implements Initializable {
 
     public void addPhotoButtonClick(ActionEvent actionEvent) {
         String filePath = getUserFilePath();
-        Album newAlbum = new Album(loginUser,selectedAlbum,filePath,"null");
+        Album newAlbum = new Album(loginUser,selectedAlbum,filePath,"null","null");
+        Date d = Calendar.getInstance().getTime();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+        String sd = dateFormat.format(d);
+        newAlbum.setDate(sd);
         albumData.add(newAlbum);
         writeText();
         refresh();
@@ -252,7 +260,8 @@ public class AlbumView extends Controller implements Initializable {
             String newAlbumUser = deleteAlbum.getUser();
             String newAlbumImagePath = deleteAlbum.getImagePath();
             String newAlbumCaption = deleteAlbum.getCaption();
-            Album newAlbum = new Album(newAlbumUser,newAlbumName,newAlbumImagePath,newAlbumCaption);
+            String newAlbumDate = deleteAlbum.getDate();
+            Album newAlbum = new Album(newAlbumUser,newAlbumName,newAlbumImagePath,newAlbumCaption, newAlbumDate);
 
             boolean albumCreated = false;
 
@@ -289,7 +298,8 @@ public class AlbumView extends Controller implements Initializable {
             String albumName = destinationLocation;
             String imagePath = filiteredAlbumData.get(selectedThumbNailIndex).getImagePath();
             String caption = filiteredAlbumData.get(selectedThumbNailIndex).getCaption();
-            Album newAlbum = new Album(user, albumName, imagePath, caption);
+            String date = filiteredAlbumData.get(selectedThumbNailIndex).getDate();
+            Album newAlbum = new Album(user, albumName, imagePath, caption, date);
            boolean albumCreated = false;
 
             for (int i = 0; i < albumData.size(); i++) {
@@ -317,7 +327,8 @@ public class AlbumView extends Controller implements Initializable {
     }
 
     public void openPhotoButtonClick(ActionEvent actionEvent) {
-        loadPage("com/example/photo/PhotoView.fxml","PhotoView",actionEvent);
+        photoIndex = selectedThumbNailIndex;
+        loadPage("PhotoView.fxml","PhotoView",actionEvent);
     }
 
 
