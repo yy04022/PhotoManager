@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputControl;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.scene.image.Image;
@@ -38,6 +39,7 @@ public class PhotoView extends Controller implements Initializable{
         filterData();
         displayImage(photoIndex);
         displayData(photoIndex);
+        readTag();
         //listView.setItems(listOfTags);
     }
 
@@ -88,6 +90,7 @@ public class PhotoView extends Controller implements Initializable{
     }
 
     public void readTag() {
+        listOfTags.getItems().clear();
         File file = new File("src/main/java/com/example/photo/photo.txt");
         Scanner input = null;
         try {
@@ -130,9 +133,25 @@ public class PhotoView extends Controller implements Initializable{
         String value = tagValueTF.getText();
         tageTypeTF.clear();
         tagValueTF.clear();
-        filteredAlbumData.get(index).setTagType(type);
-        filteredAlbumData.get(index).setTagValue(value);
+        if(filteredAlbumData.get(index).getTagType()==null
+                && filteredAlbumData.get(index).getTagValue()==null){
+            filteredAlbumData.get(index).setTagType(type);
+            filteredAlbumData.get(index).setTagValue(value);
+            System.out.println("FIRST TAG");
+         }
+        else{ //second+ tags
+            Album newAlbum = new Album(filteredAlbumData.get(index).getUser(),
+                                    filteredAlbumData.get(index).getAlbumName(),
+                                    filteredAlbumData.get(index).getImagePath(),
+                                    filteredAlbumData.get(index).getCaption(),
+                                    filteredAlbumData.get(index).getDate());
+            newAlbum.setTagType(type);
+            newAlbum.setTagValue(value);
+            albumData.add(newAlbum);
+            System.out.println("SECOND TAG");
+        }
         writeTag();
+        filterData();
         readTag();
     }
 
