@@ -35,6 +35,7 @@ public class PhotoView extends Controller implements Initializable{
 
     public ListView<String> listOfTags;
 
+
     public void initialize(URL url, ResourceBundle resourceBundle){
         filterData();
         displayImage(photoIndex);
@@ -75,12 +76,12 @@ public class PhotoView extends Controller implements Initializable{
 
     public void writeTag(){
         StringBuilder stringBuilder = new StringBuilder();
-        for(Album album:filteredAlbumData){
-            stringBuilder.append(album.getUser()).append(",")
-                    .append(album.getImagePath()).append(",")
-                    .append(album.getTagType()).append(",")
-                    .append(album.getTagValue()).append("\n");
-        }
+
+            stringBuilder.append(filteredAlbumData.get(index).getUser()).append(",")
+                    .append(filteredAlbumData.get(index).getImagePath()).append(",")
+                    .append(filteredAlbumData.get(index).getTagType()).append(",")
+                    .append(filteredAlbumData.get(index).getTagValue()).append("\n");
+
         try{
             FileWriter fileWriter = new FileWriter("src/main/java/com/example/photo/photo.txt",false);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
@@ -133,28 +134,45 @@ public class PhotoView extends Controller implements Initializable{
     public void onAddTagButtonClick(ActionEvent actionEvent) {
         String type = tageTypeTF.getText();
         String value = tagValueTF.getText();
+        if(!type.isEmpty()&&!value.isEmpty()){
+            Album album = filteredAlbumData.get(index);
+            album.setTagType(type);
+            album.setTagValue(value);
+            listOfTags.getItems().add(filteredAlbumData.get(index).getTagType()+filteredAlbumData.get(index).getTagValue());
+            try {
+                FileWriter fileWriter = new FileWriter("src/main/java/com/example/photo/photo.txt",true);
+                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+                bufferedWriter.write(album.getUser()+","+album.getImagePath()+","+album.getTagType()+","+album.getTagValue());
+                bufferedWriter.newLine();
+                bufferedWriter.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+//        if(filteredAlbumData.get(index).getTagType()==null
+//                && filteredAlbumData.get(index).getTagValue()==null){
+//            filteredAlbumData.get(index).setTagType(type);
+//            filteredAlbumData.get(index).setTagValue(value);
+//            System.out.println("FIRST TAG");
+//         }
+//        else{ //second+ tags
+//            Album newAlbum = new Album(filteredAlbumData.get(index).getUser(),
+//                                    filteredAlbumData.get(index).getAlbumName(),
+//                                    filteredAlbumData.get(index).getImagePath(),
+//                                    filteredAlbumData.get(index).getCaption(),
+//                                    filteredAlbumData.get(index).getDate());
+//            newAlbum.setTagType(type);
+//            newAlbum.setTagValue(value);
+//            albumData.add(newAlbum);
+//            System.out.println("SECOND TAG");
+////        }
+//        writeTag();
+//        filterData();
+        readTag();
         tageTypeTF.clear();
         tagValueTF.clear();
-        if(filteredAlbumData.get(index).getTagType()==null
-                && filteredAlbumData.get(index).getTagValue()==null){
-            filteredAlbumData.get(index).setTagType(type);
-            filteredAlbumData.get(index).setTagValue(value);
-            System.out.println("FIRST TAG");
-         }
-        else{ //second+ tags
-            Album newAlbum = new Album(filteredAlbumData.get(index).getUser(),
-                                    filteredAlbumData.get(index).getAlbumName(),
-                                    filteredAlbumData.get(index).getImagePath(),
-                                    filteredAlbumData.get(index).getCaption(),
-                                    filteredAlbumData.get(index).getDate());
-            newAlbum.setTagType(type);
-            newAlbum.setTagValue(value);
-            albumData.add(newAlbum);
-            System.out.println("SECOND TAG");
-        }
-        writeTag();
-        filterData();
-        readTag();
+
     }
 
     public void onDeleteButtonClick(ActionEvent actionEvent) {

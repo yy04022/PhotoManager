@@ -13,6 +13,7 @@ public class Album {
     SimpleStringProperty date = new SimpleStringProperty();
     SimpleStringProperty tagType = new SimpleStringProperty();
     SimpleStringProperty tagValue = new SimpleStringProperty();
+
     public Album(String user, String albumName,String imagePath, String caption, String date){
         setUser(user);
         setAlbumName(albumName);
@@ -20,6 +21,8 @@ public class Album {
         setCaption(caption);
         setDate(date);
     }
+
+
 
     //ObservableList<String> listOfTags = FXCollections.observableArrayList();
 
