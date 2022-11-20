@@ -76,7 +76,9 @@ public class AlbumView extends Controller implements Initializable {
         for(int i = 0;i<albumData.size();i++){
 
             if(selectedAlbum.equals(albumData.get(i).getAlbumName())) {
-                filiteredAlbumData.add(albumData.get(i));
+                if(!albumData.get(i).getImagePath().equals("null")) {
+                    filiteredAlbumData.add(albumData.get(i));
+                }
             }
 
         }

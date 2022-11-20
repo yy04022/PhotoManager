@@ -45,7 +45,9 @@ public class PhotoView extends Controller implements Initializable{
         filteredAlbumData.clear();
         for(int i = 0;i<albumData.size();i++){
             if(selectedAlbum.equals(albumData.get(i).getAlbumName())) {
-                filteredAlbumData.add(albumData.get(i));
+                if(!albumData.get(i).getImagePath().equals("null")) {
+                    filteredAlbumData.add(albumData.get(i));
+                }
             }
 
         }

@@ -124,7 +124,7 @@ public class UserDashboard extends Controller implements Initializable {
         String username = loginUser;
         String albumName = albumNameTF.getText();
         boolean duplicate = false;
-        Album newAlbum = new Album(username, albumName,"data/stock/apple.jpeg","No Image", "No Date");
+        Album newAlbum = new Album(username, albumName,"null","null", "No Date");
         for(Album album: albumData) {
            if(album.getAlbumName().equals(albumName) ){
                showAlertAddDialog(actionEvent,"Duplicate Album!");
@@ -136,7 +136,7 @@ public class UserDashboard extends Controller implements Initializable {
             albumNameTF.clear();
             albumData.add(newAlbum);
             writeText();
-            setupAlbum();
+            albumList.getItems().add(newAlbum);
         }
 
     }

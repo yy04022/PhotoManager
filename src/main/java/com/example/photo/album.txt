@@ -1,15 +1,3 @@
-user1,album1,data/stock/apple.jpeg,ap,ap
-user1,album1,/Users/yuuna/Documents/javafx/Photo/data/stock/banana.jpeg,null,null
-user1,new,data/stock/apple.jpeg,ap,ap
-user1,album3,data/stock/apple.jpeg,ap,ap
-user1,album2,data/stock/apple.jpeg,ap,ap
-user1,album1,/Users/yuuna/Documents/javafx/Photo/data/stock/ragdoll.jpeg,null,null
-user1,new,/Users/yuuna/Documents/javafx/Photo/data/stock/ragdoll.jpeg,null,null
-user1,new,/Users/yuuna/Documents/javafx/Photo/data/stock/chickfila.jpeg,chicken,chicken
-user1,album1,/Users/yuuna/Documents/javafx/Photo/data/stock/chickfila.jpeg,chicken,chicken
-user1,album,data/stock/apple.jpeg,ap,ap
-user1,album3,,null,null
-user1,album,C:\Users\lapus\OneDrive\Pictures\Saved Pictures\denmark.png,denmark,denmark
-user1,album,C:\Users\lapus\OneDrive\Pictures\MoviePictures\Batman begins.jpg,batman,batman
-user1,album,C:\Users\lapus\OneDrive\Pictures\Saved Pictures\speeder.jpg,speeder,2022-41-17 10:41:44
-user1,album,C:\Users\lapus\OneDrive\Pictures\Saved Pictures\sail.png,sail,2022-46-17 10:46:55
+user1,album1,/Users/yuuna/Documents/javafx/Photo/data/stock/banana.jpeg,null,2022-28-19 07:28:54
+user1,album1,/Users/yuuna/Documents/javafx/Photo/data/stock/apple.jpeg,null,2022-28-19 07:28:58
+user1,album1,/Users/yuuna/Documents/javafx/Photo/data/stock/chickfila.jpeg,null,2022-29-19 07:29:03
