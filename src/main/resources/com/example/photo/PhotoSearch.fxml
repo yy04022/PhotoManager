@@ -11,7 +11,6 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="529.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.photo.PhotoSearch">
    <children>
       <Pane layoutY="14.0" prefHeight="231.0" prefWidth="600.0">
@@ -23,9 +22,9 @@
             </Label>
             <Button layoutX="14.0" layoutY="2.0" mnemonicParsing="false" text="Back" />
             <Button layoutX="520.0" layoutY="3.0" mnemonicParsing="false" text="Logout" textFill="#da1616" />
-            <TextField layoutX="95.0" layoutY="42.0" prefHeight="26.0" prefWidth="147.0" />
-            <TextField layoutX="333.0" layoutY="42.0" prefHeight="26.0" prefWidth="147.0" />
-            <Button layoutX="501.0" layoutY="42.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="68.0" text="Search" />
+            <TextField fx:id="tagTypeTF" layoutX="95.0" layoutY="42.0" prefHeight="26.0" prefWidth="147.0" />
+            <TextField fx:id="tagValueTF" layoutX="333.0" layoutY="42.0" prefHeight="26.0" prefWidth="147.0" />
+            <Button layoutX="501.0" layoutY="42.0" mnemonicParsing="false" onAction="#searchButtonClick" prefHeight="26.0" prefWidth="68.0" text="Search" />
             <TableView layoutX="31.0" layoutY="86.0" prefHeight="131.0" prefWidth="538.0">
               <columns>
                 <TableColumn prefWidth="256.0" text="Tag Type" />
@@ -48,8 +47,8 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <Button layoutX="468.0" layoutY="239.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="68.0" text="Search" />
-      <Button layoutX="439.0" layoutY="272.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="147.0" text="Create From Result">
+      <Button layoutX="468.0" layoutY="239.0" mnemonicParsing="false" onAction="#datePickerSearchButtonClick" prefHeight="26.0" prefWidth="68.0" text="Search" />
+      <Button layoutX="439.0" layoutY="272.0" mnemonicParsing="false" onAction="#createFromResultButtonClick" prefHeight="36.0" prefWidth="147.0" text="Create From Result">
          <font>
             <Font size="14.0" />
          </font>

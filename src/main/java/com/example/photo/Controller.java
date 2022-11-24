@@ -23,6 +23,8 @@ public class Controller {
     public static String loginUser;
     public static String selectedAlbum;
     public static ObservableList<Album> albumData = FXCollections.observableArrayList();
+
+    public ObservableList<Tag> tagData = FXCollections.observableArrayList();
     public void loadPage(String fxmlPath, String title, ActionEvent actionEvent){
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         Parent scene = null;
@@ -72,6 +74,25 @@ public class Controller {
         try {
 
             FileWriter fileWriter = new FileWriter("src/main/java/com/example/photo/album.txt",false);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            bufferedWriter.write(stringBuilder.toString());
+            bufferedWriter.close();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void writePhotoText(){
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Tag tag : tagData) {
+            stringBuilder.append(tag.getUser()).append(",")
+                    .append(tag.getImagePath()).append(",")
+                    .append(tag.getTagType()).append(",")
+                    .append(tag.getTagValue()).append("\n");
+        }
+        try {
+
+            FileWriter fileWriter = new FileWriter("src/main/java/com/example/photo/photo.txt",false);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             bufferedWriter.write(stringBuilder.toString());
             bufferedWriter.close();

@@ -1,3 +1,5 @@
-user1,/Users/yuuna/Documents/Photo/data/stock/car.jpeg,type,car
+user1,/Users/yuuna/Documents/Photo/data/stock/cat.jpeg,cat,white
+user1,/Users/yuuna/Documents/Photo/data/stock/cat.jpeg,animal,cat
+user1,/Users/yuuna/Documents/Photo/data/stock/banana.jpeg,fruit,banana
 user1,/Users/yuuna/Documents/Photo/data/stock/car.jpeg,color,yellow
-user1,/Users/yuuna/Documents/Photo/data/stock/car.jpeg,brand,mustang
+user1,/Users/yuuna/Documents/Photo/data/stock/car.jpeg,mirror,yellow

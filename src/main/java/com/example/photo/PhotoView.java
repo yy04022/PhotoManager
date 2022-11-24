@@ -1,16 +1,15 @@
 package com.example.photo;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputControl;
 import javafx.scene.image.ImageView;
-import javafx.stage.FileChooser;
 import javafx.scene.image.Image;
 
 import java.io.*;
@@ -31,9 +30,11 @@ public class PhotoView extends Controller implements Initializable{
     public Label dateLabel;
 
     public ObservableList<Album> filteredAlbumData = FXCollections.observableArrayList();
+    public ObservableList<Tag> filteredTagData = FXCollections.observableArrayList();
     public int index = photoIndex;
+    public int selectedTagIndex = -1;
 
-    public ListView<String> listOfTags;
+    public ListView<String> tagsLV;
 
 
     public void initialize(URL url, ResourceBundle resourceBundle){
@@ -42,6 +43,18 @@ public class PhotoView extends Controller implements Initializable{
         displayData(photoIndex);
         readTag();
         //listView.setItems(listOfTags);
+        tagsLV.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                try {
+
+                    selectedTagIndex = tagsLV.getSelectionModel().getSelectedIndex();
+
+                } catch (NullPointerException e) {
+
+                }
+            }
+        });
     }
 
     private void filterData(){
@@ -74,26 +87,27 @@ public class PhotoView extends Controller implements Initializable{
         dateLabel.setText(filteredAlbumData.get(num).getDate());
     }
 
-    public void writeTag(){
-        StringBuilder stringBuilder = new StringBuilder();
-
-            stringBuilder.append(filteredAlbumData.get(index).getUser()).append(",")
-                    .append(filteredAlbumData.get(index).getImagePath()).append(",")
-                    .append(filteredAlbumData.get(index).getTagType()).append(",")
-                    .append(filteredAlbumData.get(index).getTagValue()).append("\n");
-
-        try{
-            FileWriter fileWriter = new FileWriter("src/main/java/com/example/photo/photo.txt",false);
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            bufferedWriter.write(stringBuilder.toString());
-            bufferedWriter.close();
-        }catch(IOException e){
-            throw new RuntimeException(e);
-        }
-    }
+//    public void writeTag(){
+//        StringBuilder stringBuilder = new StringBuilder();
+//        for(Album album:filteredAlbumData) {
+//            stringBuilder.append(filteredAlbumData.get(index).getUser()).append(",")
+//                    .append(filteredAlbumData.get(index).getImagePath()).append(",")
+//                    .append(filteredAlbumData.get(index).getTagType()).append(",")
+//                    .append(filteredAlbumData.get(index).getTagValue()).append("\n");
+//        }
+//        try{
+//            FileWriter fileWriter = new FileWriter("src/main/java/com/example/photo/photo.txt",false);
+//            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+//            bufferedWriter.write(stringBuilder.toString());
+//            bufferedWriter.close();
+//        }catch(IOException e){
+//            throw new RuntimeException(e);
+//        }
+//    }
 
     public void readTag() {
-        listOfTags.getItems().clear();
+        tagData.clear();
+        tagsLV.getItems().clear();
         File file = new File("src/main/java/com/example/photo/photo.txt");
         Scanner input = null;
         try {
@@ -105,9 +119,16 @@ public class PhotoView extends Controller implements Initializable{
         while(input.hasNext()){
             String line = input.nextLine();
             String [] array = line.split(",");
-            if(filteredAlbumData.get(index).getImagePath().equals(array[1])){// checks each to find imagepath match
-                listOfTags.getItems().add(array[2]+", "+array[3]);
+            String imagePath = array[1];
+            String tagType = array[2];
+            String tagValue = array[3];
+            if(filteredAlbumData.get(index).getImagePath().equals(imagePath)){// checks each to find imagepath match
+                tagsLV.getItems().add(tagType+", "+tagValue);
+
             }
+
+            tagData.add(new Tag(loginUser,imagePath,tagType,tagValue));
+
         }
     }
 
@@ -116,7 +137,7 @@ public class PhotoView extends Controller implements Initializable{
             index++;
             displayImage(index);
             displayData(index);
-            listOfTags.getItems().clear();
+            tagsLV.getItems().clear();
             readTag();
         }
     }
@@ -126,23 +147,40 @@ public class PhotoView extends Controller implements Initializable{
             index--;
             displayImage(index);
             displayData(index);
-            listOfTags.getItems().clear();
+            tagsLV.getItems().clear();
             readTag();
+        }
+    }
+    public void filterTag(Album album){
+        filteredTagData.clear();
+        for(int i = 0;i<tagData.size();i++){
+            if(tagData.get(i).getImagePath().equals(album.getImagePath())){
+                filteredTagData.add(tagData.get(i));
+            }
         }
     }
 
     public void onAddTagButtonClick(ActionEvent actionEvent) {
         String type = tageTypeTF.getText();
         String value = tagValueTF.getText();
-        if(!type.isEmpty()&&!value.isEmpty()){
-            Album album = filteredAlbumData.get(index);
-            album.setTagType(type);
-            album.setTagValue(value);
-            listOfTags.getItems().add(filteredAlbumData.get(index).getTagType()+filteredAlbumData.get(index).getTagValue());
+        Album album = filteredAlbumData.get(index);
+        filterTag(album);
+        boolean duplicate = false;
+        for(int i = 0; i<filteredTagData.size();i++){
+            if(filteredTagData.get(i).getTagType().equals(type)){
+                System.out.println("same tag");
+                duplicate =true;
+                break;
+            }
+        }
+        if(!type.isEmpty()&&!value.isEmpty()&&!duplicate){
+
+            tagsLV.getItems().add(type+value);
+            //this filewriter works for adding but not for deltebutton click
             try {
                 FileWriter fileWriter = new FileWriter("src/main/java/com/example/photo/photo.txt",true);
                 BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-                bufferedWriter.write(album.getUser()+","+album.getImagePath()+","+album.getTagType()+","+album.getTagValue());
+                bufferedWriter.write(album.getUser()+","+album.getImagePath()+","+type+","+value);
                 bufferedWriter.newLine();
                 bufferedWriter.close();
             } catch (IOException e) {
@@ -150,32 +188,28 @@ public class PhotoView extends Controller implements Initializable{
             }
         }
 
-//        if(filteredAlbumData.get(index).getTagType()==null
-//                && filteredAlbumData.get(index).getTagValue()==null){
-//            filteredAlbumData.get(index).setTagType(type);
-//            filteredAlbumData.get(index).setTagValue(value);
-//            System.out.println("FIRST TAG");
-//         }
-//        else{ //second+ tags
-//            Album newAlbum = new Album(filteredAlbumData.get(index).getUser(),
-//                                    filteredAlbumData.get(index).getAlbumName(),
-//                                    filteredAlbumData.get(index).getImagePath(),
-//                                    filteredAlbumData.get(index).getCaption(),
-//                                    filteredAlbumData.get(index).getDate());
-//            newAlbum.setTagType(type);
-//            newAlbum.setTagValue(value);
-//            albumData.add(newAlbum);
-//            System.out.println("SECOND TAG");
-////        }
-//        writeTag();
-//        filterData();
         readTag();
+//        tagData.add(new Tag(loginUser,album.getImagePath(),type,value));
         tageTypeTF.clear();
         tagValueTF.clear();
 
     }
 
     public void onDeleteButtonClick(ActionEvent actionEvent) {
+        if(selectedTagIndex!= -1){
+            System.out.println("delete"+selectedTagIndex);
+            tagsLV.getItems().remove(selectedTagIndex);
+            tagData.remove(selectedTagIndex);
+            writePhotoText();
+
+
+//            todo, rewite writetext method,
+//             becuase for loop of filifterAblumData contain all photo,
+//             also do
+
+
+        }
+
     }
 
     public void onBackButtonClick(ActionEvent actionEvent) {
