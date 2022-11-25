@@ -1,5 +1,3 @@
-user1,/Users/yuuna/Documents/Photo/data/stock/cat.jpeg,cat,white
-user1,/Users/yuuna/Documents/Photo/data/stock/cat.jpeg,animal,cat
-user1,/Users/yuuna/Documents/Photo/data/stock/banana.jpeg,fruit,banana
-user1,/Users/yuuna/Documents/Photo/data/stock/car.jpeg,color,yellow
-user1,/Users/yuuna/Documents/Photo/data/stock/car.jpeg,mirror,yellow
+user1,C:\Users\lapus\OneDrive\Pictures\MoviePictures\Parasite.jpg,ooo,ii
+user1,C:\Users\lapus\OneDrive\Pictures\MoviePictures\Parasite.jpg,aa,sss
+user1,C:\Users\lapus\OneDrive\Pictures\MoviePictures\Superbad.jpg,a,g

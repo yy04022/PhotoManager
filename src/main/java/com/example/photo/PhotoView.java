@@ -14,6 +14,10 @@ import javafx.scene.image.Image;
 
 import java.io.*;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
@@ -186,7 +190,15 @@ public class PhotoView extends Controller implements Initializable{
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+
+            Date d = Calendar.getInstance().getTime();
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+            String sd = dateFormat.format(d);
+            album.setDate(sd);
+            writeText();
+            //System.out.println("Date after add tag: "+album.getDate());
         }
+        displayData(index);
 
         readTag();
 //        tagData.add(new Tag(loginUser,album.getImagePath(),type,value));
@@ -207,7 +219,14 @@ public class PhotoView extends Controller implements Initializable{
 //             becuase for loop of filifterAblumData contain all photo,
 //             also do
 
-
+            Date d = Calendar.getInstance().getTime();
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+            String sd = dateFormat.format(d);
+            Album album = filteredAlbumData.get(index);
+            album.setDate(sd);
+            //System.out.println("Date after remove tag: "+album.getDate());
+            displayData(index);
+            writeText();
         }
 
     }

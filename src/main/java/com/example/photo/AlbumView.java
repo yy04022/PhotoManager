@@ -221,7 +221,6 @@ public class AlbumView extends Controller implements Initializable {
         albumData.add(newAlbum);
         writeText();
         refresh();
-
     }
 
     public void deletePhotoButtonClick(ActionEvent actionEvent) {
@@ -246,6 +245,10 @@ public class AlbumView extends Controller implements Initializable {
                     albumData.get(i).setCaption(caption);
                 }
             }
+            Date d = Calendar.getInstance().getTime();
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+            String sd = dateFormat.format(d);
+            editAlbum.setDate(sd);
             writeText();
             refresh();
         }
@@ -284,7 +287,10 @@ public class AlbumView extends Controller implements Initializable {
                 locationTF.clear();
                 showAlertAddDialog(actionEvent,"This Album doesn't exist!");
             }
-
+            Date d = Calendar.getInstance().getTime();
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+            String sd = dateFormat.format(d);
+            newAlbum.setDate(sd);
 
         } else if (selectedThumbNailIndex==-1 && locationTF.getText().isEmpty()) {
             showAlertAddDialog(actionEvent, "You need to select a photo and enter a album name!");
