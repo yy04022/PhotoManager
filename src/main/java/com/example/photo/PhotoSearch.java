@@ -72,8 +72,8 @@ public class PhotoSearch extends Controller implements Initializable {
 
         } else if (!tagType.isEmpty()&&!tagValue.isEmpty()) {
             for(int i = 0; i<tagData.size();i++){
-                String existingType = tagData.get(i).getTagType().toLowerCase();
-                String existingValue = tagData.get(i).getTagValue().toLowerCase();
+                String existingType = tagData.get(i).getTagType();
+                String existingValue = tagData.get(i).getTagValue();
                 if(tagType.equals(existingType)&&tagValue.equals(existingValue)){
                     resultImagePathArray.add(tagData.get(i).getImagePath());
 
@@ -86,7 +86,9 @@ public class PhotoSearch extends Controller implements Initializable {
         
         filterAlbum(resultImagePathArray);
         deleteDuplicateImage(filteredAlbumData);
+        // TODO: 11/26/22 FindOutWhy only one picture displayed when they all match the search result 
         setAllThumbNail();
+        filteredAlbumData.clear();
     }
     public void deleteDuplicateImage(ObservableList<Album> filteredAlbumData){
         for(int i = 0;i< filteredAlbumData.size();i++){

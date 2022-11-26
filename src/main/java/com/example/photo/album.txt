@@ -1,6 +1,3 @@
 user1,album1,null,null,No Date
-user1,album1,/Users/yuuna/Documents/Photo/data/stock/banana.jpeg,banana,2022-14-26 03:14:21
-user1,album1,/Users/yuuna/Documents/Photo/data/stock/car.jpeg,null,2022-53-26 02:53:51
-user1,album1,/Users/yuuna/Documents/Photo/data/stock/banana.jpeg,banana,2022-53-26 02:53:54
-user1,album3,null,null,No Date
-user1,album3,/Users/yuuna/Documents/Photo/data/stock/cat.jpeg,null,2022-12-26 03:12:07
+user1,album1,/Users/yuuna/Documents/Photo/data/stock/banana.jpeg,null,2022-13-26 04:13:43
+user1,album1,/Users/yuuna/Documents/Photo/data/stock/car.jpeg,null,2022-13-26 04:13:51

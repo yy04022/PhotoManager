@@ -1,2 +1,2 @@
-user1,/Users/yuuna/Documents/Photo/data/stock/banana.jpeg,fruit,banana
-user1,/Users/yuuna/Documents/Photo/data/stock/banana.jpeg,FRUIT,BANAN
+user1,/Users/yuuna/Documents/Photo/data/stock/banana.jpeg,color,yellow
+user1,/Users/yuuna/Documents/Photo/data/stock/car.jpeg,color,yellow

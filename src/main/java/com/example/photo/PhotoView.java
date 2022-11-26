@@ -166,8 +166,8 @@ public class PhotoView extends Controller implements Initializable{
     }
 
     public void onAddTagButtonClick(ActionEvent actionEvent) {
-        String type = tageTypeTF.getText();
-        String value = tagValueTF.getText();
+        String type = tageTypeTF.getText().toLowerCase();
+        String value = tagValueTF.getText().toLowerCase();
         Album album = filteredAlbumData.get(index);
         filterTag(album);
         boolean duplicate = false;

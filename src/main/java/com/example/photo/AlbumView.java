@@ -42,6 +42,8 @@ public class AlbumView extends Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+            photoGp.getChildren().clear();
+            filiteredAlbumData.clear();
             selectedThumbNailIndex = -1;
             albumNameTF.setText(selectedAlbum);
 
@@ -342,6 +344,8 @@ public class AlbumView extends Controller implements Initializable {
         selectedAlbum = null ;
         filiteredAlbumData.clear();
         albumData.clear();
+        photoGp.getChildren().clear();
+
         loadPage("UserDashboard.fxml","UserDashboard",actionEvent);
     }
 
