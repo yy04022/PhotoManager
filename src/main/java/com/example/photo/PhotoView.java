@@ -136,6 +136,7 @@ public class PhotoView extends Controller implements Initializable{
         }
     }
 
+
     public void setNextPhotoButtonClick(ActionEvent actionEvent) {
         if(index<filteredAlbumData.size()-1){
             index++;

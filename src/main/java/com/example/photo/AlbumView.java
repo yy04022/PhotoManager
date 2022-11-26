@@ -121,8 +121,6 @@ public class AlbumView extends Controller implements Initializable {
     }
     public double getRow(double num){
         double row = num/3;
-        System.out.println("before ceil"+row);
-        System.out.println("after ceil"+ Math.ceil(row));
         return Math.ceil(row);
 
     }

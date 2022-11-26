@@ -1,3 +1,2 @@
-user1,C:\Users\lapus\OneDrive\Pictures\MoviePictures\Parasite.jpg,ooo,ii
-user1,C:\Users\lapus\OneDrive\Pictures\MoviePictures\Parasite.jpg,aa,sss
-user1,C:\Users\lapus\OneDrive\Pictures\MoviePictures\Superbad.jpg,a,g
+user1,/Users/yuuna/Documents/Photo/data/stock/banana.jpeg,fruit,banana
+user1,/Users/yuuna/Documents/Photo/data/stock/banana.jpeg,FRUIT,BANAN
