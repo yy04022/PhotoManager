@@ -48,6 +48,7 @@ public class UserDashboard extends Controller implements Initializable {
     }
 
     private void setupAlbum() {
+        albumData.clear();
         try {
             readText();
         } catch (FileNotFoundException e) {
@@ -57,12 +58,12 @@ public class UserDashboard extends Controller implements Initializable {
         HashSet<String> hashSet = new HashSet<String>();
         for(int i = 0;i<albumData.size();i++){
             boolean valid = hashSet.add(albumData.get(i).getAlbumName());
-            if(valid) {
+            if(valid&& albumData.get(i).getUser().equals(loginUser)) {
                 filiteredAlbumData.add(albumData.get(i));
             }
 
         }
-        System.out.println(filiteredAlbumData.size());
+        System.out.println(albumData.size());
         albumList.setItems(filiteredAlbumData);
 
 
@@ -76,14 +77,14 @@ public class UserDashboard extends Controller implements Initializable {
             String [] array  = line.split(",");
             Album newAlbum = new Album(array[0],array[1],array[2],array[3],array[4]);
 
-          if(newAlbum.getUser().equals(loginUser)) {
+//          if(newAlbum.getUser().equals(loginUser)) {
               albumData.add(newAlbum);
 
 //              boolean valid = hashSet.add(array[1]);
 //              if(valid) {
 //                  albumData.add(newAlbum);
 //              }
-            }
+//            }
 
         }
     }
@@ -126,7 +127,7 @@ public class UserDashboard extends Controller implements Initializable {
         boolean duplicate = false;
         Album newAlbum = new Album(username, albumName,"null","null", "No Date");
         for(Album album: albumData) {
-           if(album.getAlbumName().equals(albumName) ){
+           if(album.getAlbumName().equals(albumName)&&album.getUser().equals(loginUser) ){
                showAlertAddDialog(actionEvent,"Duplicate Album!");
                duplicate = true;
                break;

@@ -64,6 +64,7 @@ public class Controller {
     }
     public void writeText(){
         StringBuilder stringBuilder = new StringBuilder();
+        System.out.println("writing text"+albumData.size());
         for (Album album:albumData) {
             stringBuilder.append(album.getUser()).append(",")
                     .append(album.getAlbumName()).append(",")

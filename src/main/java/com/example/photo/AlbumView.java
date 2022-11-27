@@ -78,7 +78,7 @@ public class AlbumView extends Controller implements Initializable {
         for(int i = 0;i<albumData.size();i++){
 
             if(selectedAlbum.equals(albumData.get(i).getAlbumName())) {
-                if(!albumData.get(i).getImagePath().equals("null")) {
+                if(!albumData.get(i).getImagePath().equals("null")&&albumData.get(i).getUser().equals(loginUser)) {
                     filiteredAlbumData.add(albumData.get(i));
                 }
             }
@@ -215,7 +215,7 @@ public class AlbumView extends Controller implements Initializable {
         String filePath = getUserFilePath();
         Album newAlbum = new Album(loginUser,selectedAlbum,filePath,"null","null");
         Date d = Calendar.getInstance().getTime();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String sd = dateFormat.format(d);
         newAlbum.setDate(sd);
         albumData.add(newAlbum);
@@ -246,7 +246,7 @@ public class AlbumView extends Controller implements Initializable {
                 }
             }
             Date d = Calendar.getInstance().getTime();
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String sd = dateFormat.format(d);
             editAlbum.setDate(sd);
             writeText();
@@ -288,7 +288,7 @@ public class AlbumView extends Controller implements Initializable {
                 showAlertAddDialog(actionEvent,"This Album doesn't exist!");
             }
             Date d = Calendar.getInstance().getTime();
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String sd = dateFormat.format(d);
             newAlbum.setDate(sd);
 

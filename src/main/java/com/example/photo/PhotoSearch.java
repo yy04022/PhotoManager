@@ -20,6 +20,7 @@ import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -36,6 +37,7 @@ public class PhotoSearch extends Controller implements Initializable {
     public ObservableList<String> resultImagePathArray = FXCollections.observableArrayList();
 
     public ObservableList<Album> filteredAlbumData = FXCollections.observableArrayList();
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         readTag();
@@ -68,6 +70,23 @@ public class PhotoSearch extends Controller implements Initializable {
         String tagType = tagTypeTF.getText().toLowerCase();
         String tagValue = tagValueTF.getText().toLowerCase();
         if(haveFromDate&&haveToDate){
+            LocalDate toDate = toDatePicker.getValue();
+            LocalDate fromDate = fromDatePicker.getValue();
+            System.out.println(toDate.toString()+fromDate.toString());
+            for (Album album: albumData){
+                String albumDate = album.getDate();
+                DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                try {
+                    LocalDate date = LocalDate.parse(albumDate, dateFormat);
+                    System.out.println(date.toString());
+                    if(fromDate.isBefore(date)&&toDate.isAfter(date)){
+                        resultImagePathArray.add(album.getImagePath());
+                    }
+                } catch (Exception e) {
+                    System.out.println("no date");
+                }
+
+            }
             //search by date
 
         } else if (!tagType.isEmpty()&&!tagValue.isEmpty()) {
@@ -83,28 +102,27 @@ public class PhotoSearch extends Controller implements Initializable {
             showAlertAddDialog(actionEvent,"You need to select Dates or enter Tag to search photo!");
             return;
         }
-        
-        filterAlbum(resultImagePathArray);
-        deleteDuplicateImage(filteredAlbumData);
-        // TODO: 11/26/22 FindOutWhy only one picture displayed when they all match the search result 
-        setAllThumbNail();
-        filteredAlbumData.clear();
-    }
-    public void deleteDuplicateImage(ObservableList<Album> filteredAlbumData){
-        for(int i = 0;i< filteredAlbumData.size();i++){
-            for(int j =0;j<filteredAlbumData.size();j++){
-                if(filteredAlbumData.get(j).getImagePath().equals(filteredAlbumData.get(i).getImagePath())){
-                    filteredAlbumData.remove(filteredAlbumData.get(j));
-                }
-            }
+        if(resultImagePathArray.size()!=0) {
+            filteredAlbumData.clear();
+            filterAlbum(resultImagePathArray);
+
+            setAllThumbNail();
+            filteredAlbumData.clear();
+        }else {
+            showAlertAddDialog(actionEvent,"No Image Found.");
         }
     }
+
 
     public void filterAlbum(ObservableList<String> resultImageData){
         for(int i =0 ; i<resultImageData.size();i++){
             for(int j =0; j<albumData.size();j++){
-                if (albumData.get(j).getImagePath().equals(resultImageData.get(i))){
+                System.out.println("albumData:"+albumData.get(j).getImagePath());
+                if (albumData.get(j).getImagePath().equals(resultImageData.get(i))&& albumData.get(j).getUser().equals(loginUser)){
                     filteredAlbumData.add(albumData.get(j));
+
+                    System.out.println("filterData:"+albumData.get(j).getImagePath());
+                    break;
                 }
             }
         }
@@ -209,7 +227,7 @@ public class PhotoSearch extends Controller implements Initializable {
         Album album = new Album(null, null, null, null, null);
         //add param to this ^
         Date d = Calendar.getInstance().getTime();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String sd = dateFormat.format(d);
         album.setDate(sd);
     }
@@ -232,7 +250,7 @@ public class PhotoSearch extends Controller implements Initializable {
     }
 
     public void getToDate(ActionEvent actionEvent) {
-        LocalDate toDate = fromDatePicker.getValue();
+        LocalDate toDate = toDatePicker.getValue();
         haveToDate = true;
 
     }

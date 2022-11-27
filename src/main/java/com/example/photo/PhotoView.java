@@ -65,7 +65,7 @@ public class PhotoView extends Controller implements Initializable{
         filteredAlbumData.clear();
         for(int i = 0;i<albumData.size();i++){
             if(selectedAlbum.equals(albumData.get(i).getAlbumName())) {
-                if(!albumData.get(i).getImagePath().equals("null")) {
+                if(!albumData.get(i).getImagePath().equals("null")&&albumData.get(i).getUser().equals(loginUser)) {
                     filteredAlbumData.add(albumData.get(i));
                 }
             }
@@ -193,7 +193,7 @@ public class PhotoView extends Controller implements Initializable{
             }
 
             Date d = Calendar.getInstance().getTime();
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String sd = dateFormat.format(d);
             album.setDate(sd);
             writeText();
@@ -221,7 +221,7 @@ public class PhotoView extends Controller implements Initializable{
 //             also do
 
             Date d = Calendar.getInstance().getTime();
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String sd = dateFormat.format(d);
             Album album = filteredAlbumData.get(index);
             album.setDate(sd);
