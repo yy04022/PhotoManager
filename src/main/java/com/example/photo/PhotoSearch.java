@@ -32,17 +32,19 @@ public class PhotoSearch extends Controller implements Initializable {
     public GridPane resultGP;
     public DatePicker toDatePicker;
     public DatePicker fromDatePicker;
-    boolean haveFromDate =false;
+    boolean haveFromDate = false;
     boolean haveToDate = false;
     public ObservableList<String> resultImagePathArray = FXCollections.observableArrayList();
 
     public ObservableList<Album> filteredAlbumData = FXCollections.observableArrayList();
+    public ObservableList<Album> secondFilteredAlbumData = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         readTag();
 
     }
+
     public void readTag() {
         tagData.clear();
         File file = new File("src/main/java/com/example/photo/photo.txt");
@@ -53,33 +55,34 @@ public class PhotoSearch extends Controller implements Initializable {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        while(input.hasNext()){
+        while (input.hasNext()) {
             String line = input.nextLine();
-            String [] array = line.split(",");
+            String[] array = line.split(",");
             String imagePath = array[1];
             String tagType = array[2];
             String tagValue = array[3];
 
 
-            tagData.add(new Tag(loginUser,imagePath,tagType,tagValue));
+            tagData.add(new Tag(loginUser, imagePath, tagType, tagValue));
 
         }
     }
 
     public void searchButtonClick(ActionEvent actionEvent) {
+        resultGP.getChildren().clear();
         String tagType = tagTypeTF.getText().toLowerCase();
         String tagValue = tagValueTF.getText().toLowerCase();
-        if(haveFromDate&&haveToDate){
+        if (haveFromDate && haveToDate) {
             LocalDate toDate = toDatePicker.getValue();
             LocalDate fromDate = fromDatePicker.getValue();
-            System.out.println(toDate.toString()+fromDate.toString());
-            for (Album album: albumData){
+            System.out.println(toDate.toString() + fromDate.toString());
+            for (Album album : albumData) {
                 String albumDate = album.getDate();
                 DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                 try {
                     LocalDate date = LocalDate.parse(albumDate, dateFormat);
                     System.out.println(date.toString());
-                    if(fromDate.isBefore(date)&&toDate.isAfter(date)){
+                    if (fromDate.isBefore(date) && toDate.isAfter(date)) {
                         resultImagePathArray.add(album.getImagePath());
                     }
                 } catch (Exception e) {
@@ -89,39 +92,47 @@ public class PhotoSearch extends Controller implements Initializable {
             }
             //search by date
 
-        } else if (!tagType.isEmpty()&&!tagValue.isEmpty()) {
-            for(int i = 0; i<tagData.size();i++){
+        } else if (!tagType.isEmpty() && !tagValue.isEmpty()) {
+            for (int i = 0; i < tagData.size(); i++) {
                 String existingType = tagData.get(i).getTagType();
                 String existingValue = tagData.get(i).getTagValue();
-                if(tagType.equals(existingType)&&tagValue.equals(existingValue)){
+                if (tagType.equals(existingType) && tagValue.equals(existingValue)) {
                     resultImagePathArray.add(tagData.get(i).getImagePath());
 
                 }
             }
-        }else {
-            showAlertAddDialog(actionEvent,"You need to select Dates or enter Tag to search photo!");
+        } else {
+            showAlertAddDialog(actionEvent, "You need to select Dates or enter Tag to search photo!");
             return;
         }
-        if(resultImagePathArray.size()!=0) {
+        if (resultImagePathArray.size() != 0) {
             filteredAlbumData.clear();
             filterAlbum(resultImagePathArray);
 
             setAllThumbNail();
-            filteredAlbumData.clear();
-        }else {
-            showAlertAddDialog(actionEvent,"No Image Found.");
+        } else {
+            showAlertAddDialog(actionEvent, "No Image Found.");
         }
+        clearInput();
+    }
+
+    public void clearInput() {
+        tagTypeTF.clear();
+        tagValueTF.clear();
+        fromDatePicker.getEditor().clear();
+        toDatePicker.getEditor().clear();
     }
 
 
-    public void filterAlbum(ObservableList<String> resultImageData){
-        for(int i =0 ; i<resultImageData.size();i++){
-            for(int j =0; j<albumData.size();j++){
-                System.out.println("albumData:"+albumData.get(j).getImagePath());
-                if (albumData.get(j).getImagePath().equals(resultImageData.get(i))&& albumData.get(j).getUser().equals(loginUser)){
+    public void filterAlbum(ObservableList<String> resultImageData) {
+        filteredAlbumData.clear();
+        for (int i = 0; i < resultImageData.size(); i++) {
+            for (int j = 0; j < albumData.size(); j++) {
+                System.out.println("albumData:" + albumData.get(j).getImagePath());
+                if (albumData.get(j).getImagePath().equals(resultImageData.get(i)) && albumData.get(j).getUser().equals(loginUser)) {
                     filteredAlbumData.add(albumData.get(j));
 
-                    System.out.println("filterData:"+albumData.get(j).getImagePath());
+                    System.out.println("filterData:" + albumData.get(j).getImagePath());
                     break;
                 }
             }
@@ -129,56 +140,61 @@ public class PhotoSearch extends Controller implements Initializable {
 
     }
 
-    public double getRow(double num){
-        double row = num/3;
+    public double getRow(double num) {
+        double row = num / 3;
         return Math.ceil(row);
 
     }
-    public double getCol(double num){
-        double col = num%3;
+
+    public double getCol(double num) {
+        double col = num % 3;
         return col;
     }
-    public void setAllThumbNail(){
+
+    public void setAllThumbNail() {
+        resultGP.getChildren().clear();
         double thumbnailSize = filteredAlbumData.size();
 
-        if(thumbnailSize>9){
-            thumbnailSize= 9;
+        if (thumbnailSize > 9) {
+            thumbnailSize = 9;
         }
-        double row= getRow(thumbnailSize);
+        double row = getRow(thumbnailSize);
 
         double col = getCol(thumbnailSize);
 
-        int count=0;
-        for(int i = 0; i<row;i++){
+        int count = 0;
+        for (int i = 0; i < row; i++) {
 
-            if(count == 9){
+            if (count == 9) {
                 break;
             }
-            if(i<row-1 || thumbnailSize%3 ==0){
-                for(int j =0;j< 3;j++){
-                    displayThumbNail(i,j,count);
+            if (i < row - 1 || thumbnailSize % 3 == 0) {
+                for (int j = 0; j < 3; j++) {
+                    displayThumbNail(i, j, count);
                     count++;
                 }
-            } else{
-                for(int j =0;j<col;j++){
-                    displayThumbNail(i,j,count);
+            } else {
+                for (int j = 0; j < col; j++) {
+                    displayThumbNail(i, j, count);
                     count++;
                 }
             }
         }
     }
-    public void displayThumbNail(int i, int j, int count){
+
+    public void displayThumbNail(int i, int j, int count) {
         String imagePath = filteredAlbumData.get(count).getImagePath();
         String caption = filteredAlbumData.get(count).getCaption();
 
-        VBox vBox = setThumbnail(filteredAlbumData.get(count),imagePath, caption,count);
+        VBox vBox = setThumbnail(filteredAlbumData.get(count), imagePath, caption, count);
 
-        resultGP.add(vBox, i,j);
+        resultGP.add(vBox, i, j);
 
     }
-    public VBox setThumbnail(Album album,String imagePath, String caption,int index) {
+
+    public VBox setThumbnail(Album album, String imagePath, String caption, int index) {
 //        VBox thumbnailVbox = new VBox();
-        ThumbNail thumbnailVbox = new ThumbNail(album,index);
+        ThumbNail thumbnailVbox = new ThumbNail(album, index);
         ImageView imageView = new ImageView();
 
         Label label = new Label();
@@ -188,32 +204,34 @@ public class PhotoSearch extends Controller implements Initializable {
         imageView.setImage(displayImage(imagePath));
 
         label.setText(caption);
-        thumbnailVbox.getChildren().addAll(imageView,label);
+        thumbnailVbox.getChildren().addAll(imageView, label);
         return thumbnailVbox;
 
     }
 
-    class ThumbNail extends VBox{
+    class ThumbNail extends VBox {
         String user;
         String albumName;
         String imagePath;
         String caption;
         int index;
-        public ThumbNail(Album album,int index){
+
+        public ThumbNail(Album album, int index) {
             user = album.getUser();
-            albumName =album.getAlbumName();
+            albumName = album.getAlbumName();
             imagePath = album.getImagePath();
             caption = album.getCaption();
             this.index = index;
-            setOnMouseClicked(e->{
+            setOnMouseClicked(e -> {
             });
         }
     }
-    public Image displayImage(String imagePath){
+
+    public Image displayImage(String imagePath) {
         InputStream stream = null;
         try {
             stream = new FileInputStream(imagePath);
-        }catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             System.out.println("File not found");
         }
 
@@ -221,7 +239,7 @@ public class PhotoSearch extends Controller implements Initializable {
         return image;
 
     }
-    
+
 
     public void createFromResultButtonClick(ActionEvent actionEvent) {
         Album album = new Album(null, null, null, null, null);
@@ -234,13 +252,13 @@ public class PhotoSearch extends Controller implements Initializable {
 
     public void onBackButtonClick(ActionEvent actionEvent) {
 
-        loadPage("UserDashboard.fxml","UserDashboard",actionEvent);
+        loadPage("UserDashboard.fxml", "UserDashboard", actionEvent);
     }
 
     public void onLogoutButtonClick(ActionEvent actionEvent) {
-        loginUser =null;
+        loginUser = null;
 
-        loadPage("Login.fxml","Login",actionEvent);
+        loadPage("Login.fxml", "Login", actionEvent);
     }
 
     public void getFromDate(ActionEvent actionEvent) {
@@ -256,9 +274,39 @@ public class PhotoSearch extends Controller implements Initializable {
     }
 
 
-
     public void secondSearchButtonClick(ActionEvent actionEvent) {
+        resultGP.getChildren().clear();
+        resultImagePathArray.clear();
+
+        String secondTagType = tagTypeTF.getText().toLowerCase();
+        String secondTagValue = tagValueTF.getText().toLowerCase();
+        if (!secondTagValue.isEmpty() && !secondTagType.isEmpty()) {
+            for(Tag tag : tagData) {
+                for (int i = 0; i < filteredAlbumData.size(); i++) {
+                    if (filteredAlbumData.get(i).getImagePath().equals(tag.getImagePath())&&tag.getUser().equals(loginUser)) {
+                        if(tag.getTagType().equals(secondTagType)&&tag.getTagValue().equals(secondTagValue)){
+                            resultImagePathArray.add(tag.getImagePath());
+
+                        }
+                    }
+
+                }
+            }
+        } else {
+            showAlertAddDialog(actionEvent, "You need to select Dates or enter Tag to search photo!");
+            return;
+        }
+        System.out.println("second filiter size"+secondFilteredAlbumData.size());
+        if (resultImagePathArray.size() != 0) {
+            filteredAlbumData.clear();
+            filterAlbum(resultImagePathArray);
+
+            setAllThumbNail();
+        } else {
+            showAlertAddDialog(actionEvent, "No Image Found.");
+        }
+        clearInput();
+
+
     }
-
-
 }

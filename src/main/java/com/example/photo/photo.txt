@@ -3,3 +3,5 @@ user1,/Users/yuuna/Documents/Photo/data/stock/car.jpeg,color,yellow
 user2,/Users/yuuna/Documents/Photo/data/stock/smoothie.jpeg,color,yellow
 user2,/Users/yuuna/Documents/Photo/data/stock/apple.jpeg,color,red
 user2,/Users/yuuna/Documents/Photo/data/stock/mcdonalds.jpeg,color,red
+user1,/Users/yuuna/Documents/Photo/data/stock/cat.jpeg,color,yellow
+user1,/Users/yuuna/Documents/Photo/data/stock/cat.jpeg,a,b
