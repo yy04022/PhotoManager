@@ -210,6 +210,11 @@ public class PhotoSearch extends Controller implements Initializable {
 
     }
 
+    public void secondORSearchButtonClick(ActionEvent actionEvent) {
+        // TODO: 11/27/22 OR condition
+        //  also write method to delete tag when delete a photo
+    }
+
     class ThumbNail extends VBox {
         String user;
         String albumName;

@@ -44,8 +44,9 @@
                   <Font size="14.0" />
                </font>
             </Button>
-            <Button layoutX="181.0" layoutY="123.0" mnemonicParsing="false" onAction="#secondSearchButtonClick" prefHeight="26.0" prefWidth="168.0" text="SearchSecond Condition" />
+            <Button layoutX="181.0" layoutY="136.0" mnemonicParsing="false" onAction="#secondSearchButtonClick" prefHeight="26.0" prefWidth="192.0" text="SearchSecond Condition(AND)" />
             <TextField fx:id="createNewAlbumNameTF" layoutX="416.0" layoutY="110.0" prefHeight="20.0" prefWidth="147.0" text="Enter New Album Name" />
+            <Button layoutX="181.0" layoutY="110.0" mnemonicParsing="false" onAction="#secondORSearchButtonClick" prefHeight="26.0" prefWidth="192.0" text="SearchSecond Condition(OR)" />
          </children>
       </Pane>
       <GridPane fx:id="resultGP" layoutX="63.0" layoutY="214.0" prefHeight="279.0" prefWidth="460.0">
