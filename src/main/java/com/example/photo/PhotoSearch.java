@@ -32,6 +32,7 @@ public class PhotoSearch extends Controller implements Initializable {
     public GridPane resultGP;
     public DatePicker toDatePicker;
     public DatePicker fromDatePicker;
+    public TextField createNewAlbumNameTF;
     boolean haveFromDate = false;
     boolean haveToDate = false;
     public ObservableList<String> resultImagePathArray = FXCollections.observableArrayList();
@@ -242,12 +243,28 @@ public class PhotoSearch extends Controller implements Initializable {
 
 
     public void createFromResultButtonClick(ActionEvent actionEvent) {
-        Album album = new Album(null, null, null, null, null);
-        //add param to this ^
-        Date d = Calendar.getInstance().getTime();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String sd = dateFormat.format(d);
-        album.setDate(sd);
+        String newAlbumName = createNewAlbumNameTF.getText();
+        if(!newAlbumName.isEmpty()){
+            for(int i = 0; i<filteredAlbumData.size();i++){
+
+                Album album = new Album(null, null, null, null, null);
+                Date d = Calendar.getInstance().getTime();
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                String sd = dateFormat.format(d);
+                album.setDate(sd);
+                album.setUser(loginUser);
+                album.setAlbumName(newAlbumName);
+                album.setImagePath(filteredAlbumData.get(i).getImagePath());
+                album.setCaption(filteredAlbumData.get(i).getCaption());
+                album.setTagType(filteredAlbumData.get(i).getTagType());
+                album.setTagValue(filteredAlbumData.get(i).getTagValue());
+                albumData.add(album);
+            }
+            writeText();
+
+        }else {
+            showAlertAddDialog(actionEvent,"Enter a new album name you want to create");
+        }
     }
 
     public void onBackButtonClick(ActionEvent actionEvent) {

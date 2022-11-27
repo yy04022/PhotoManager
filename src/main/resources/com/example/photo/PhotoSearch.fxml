@@ -39,12 +39,13 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <Button layoutX="416.0" layoutY="118.0" mnemonicParsing="false" onAction="#createFromResultButtonClick" prefHeight="36.0" prefWidth="147.0" text="Create From Result">
+            <Button layoutX="416.0" layoutY="142.0" mnemonicParsing="false" onAction="#createFromResultButtonClick" prefHeight="26.0" prefWidth="147.0" text="Create From Result">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
             <Button layoutX="181.0" layoutY="123.0" mnemonicParsing="false" onAction="#secondSearchButtonClick" prefHeight="26.0" prefWidth="168.0" text="SearchSecond Condition" />
+            <TextField fx:id="createNewAlbumNameTF" layoutX="416.0" layoutY="110.0" prefHeight="20.0" prefWidth="147.0" text="Enter New Album Name" />
          </children>
       </Pane>
       <GridPane fx:id="resultGP" layoutX="63.0" layoutY="214.0" prefHeight="279.0" prefWidth="460.0">

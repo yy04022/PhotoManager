@@ -5,3 +5,6 @@ user1,album2,/Users/yuuna/Documents/Photo/data/stock/banana.jpeg,null,2022-11-27
 user2,album2,null,null,No Date
 user2,album1,/Users/yuuna/Documents/Photo/data/stock/apple.jpeg,null,2022-11-27
 user2,album1,/Users/yuuna/Documents/Photo/data/stock/mcdonalds.jpeg,null,2022-11-25
+user1,abc,/Users/yuuna/Documents/Photo/data/stock/banana.jpeg,null,2022-11-27
+user1,abc,/Users/yuuna/Documents/Photo/data/stock/cat.jpeg,null,2022-11-27
+user1,new cat,/Users/yuuna/Documents/Photo/data/stock/cat.jpeg,null,2022-11-27
