@@ -1,4 +1,3 @@
 admin
+stock
 user1
-
-user2

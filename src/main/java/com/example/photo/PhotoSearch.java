@@ -70,7 +70,9 @@ public class PhotoSearch extends Controller implements Initializable {
     }
 
     public void searchButtonClick(ActionEvent actionEvent) {
-        resultGP.getChildren().clear();
+        resultGP.getChildren().removeAll();
+        resultImagePathArray.clear();
+        filteredAlbumData.clear();
         String tagType = tagTypeTF.getText().toLowerCase();
         String tagValue = tagValueTF.getText().toLowerCase();
         if (haveFromDate && haveToDate) {
@@ -140,6 +142,20 @@ public class PhotoSearch extends Controller implements Initializable {
         }
 
     }
+    public void filterAlbumOR(ObservableList<String> resultImageData) {
+        for (int i = 0; i < resultImageData.size(); i++) {
+            for (int j = 0; j < albumData.size(); j++) {
+                System.out.println("albumData:" + albumData.get(j).getImagePath());
+                if (albumData.get(j).getImagePath().equals(resultImageData.get(i)) && albumData.get(j).getUser().equals(loginUser)) {
+                    filteredAlbumData.add(albumData.get(j));
+
+                    System.out.println("filterData:" + albumData.get(j).getImagePath());
+                    break;
+                }
+            }
+        }
+
+    }
 
     public double getRow(double num) {
         double row = num / 3;
@@ -154,6 +170,35 @@ public class PhotoSearch extends Controller implements Initializable {
 
     public void setAllThumbNail() {
         resultGP.getChildren().clear();
+        double thumbnailSize = filteredAlbumData.size();
+
+        if (thumbnailSize > 9) {
+            thumbnailSize = 9;
+        }
+        double row = getRow(thumbnailSize);
+
+        double col = getCol(thumbnailSize);
+
+        int count = 0;
+        for (int i = 0; i < row; i++) {
+
+            if (count == 9) {
+                break;
+            }
+            if (i < row - 1 || thumbnailSize % 3 == 0) {
+                for (int j = 0; j < 3; j++) {
+                    displayThumbNail(i, j, count);
+                    count++;
+                }
+            } else {
+                for (int j = 0; j < col; j++) {
+                    displayThumbNail(i, j, count);
+                    count++;
+                }
+            }
+        }
+    }
+    public void setAllThumbNailOR() {
         double thumbnailSize = filteredAlbumData.size();
 
         if (thumbnailSize > 9) {
@@ -210,10 +255,7 @@ public class PhotoSearch extends Controller implements Initializable {
 
     }
 
-    public void secondORSearchButtonClick(ActionEvent actionEvent) {
-        // TODO: 11/27/22 OR condition
-        //  also write method to delete tag when delete a photo
-    }
+
 
     class ThumbNail extends VBox {
         String user;
@@ -297,7 +339,7 @@ public class PhotoSearch extends Controller implements Initializable {
 
 
     public void secondSearchButtonClick(ActionEvent actionEvent) {
-        resultGP.getChildren().clear();
+        resultGP.getChildren().removeAll();
         resultImagePathArray.clear();
 
         String secondTagType = tagTypeTF.getText().toLowerCase();
@@ -330,5 +372,33 @@ public class PhotoSearch extends Controller implements Initializable {
         clearInput();
 
 
+    }
+    public void secondORSearchButtonClick(ActionEvent actionEvent) {
+
+        String secondTagType = tagTypeTF.getText().toLowerCase();
+        String secondTagValue = tagValueTF.getText().toLowerCase();
+        if (!secondTagValue.isEmpty() && !secondTagType.isEmpty()) {
+            for(Tag tag : tagData) {
+               if(tag.getTagType().equals(secondTagType)&&tag.getTagValue().equals(secondTagValue)){
+                            resultImagePathArray.add(tag.getImagePath());
+
+                        }
+
+
+
+            }
+        } else {
+            showAlertAddDialog(actionEvent, "You need to select Dates or enter Tag to search photo!");
+            return;
+        }
+        System.out.println("result image array size"+resultImagePathArray.size());
+        if (resultImagePathArray.size() != 0) {
+            filterAlbum(resultImagePathArray);
+            System.out.println("filiteralbum size:"+filteredAlbumData.size());
+            setAllThumbNailOR();
+        } else {
+            showAlertAddDialog(actionEvent, "No Image Found.");
+        }
+        clearInput();
     }
 }

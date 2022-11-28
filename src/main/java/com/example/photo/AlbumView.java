@@ -24,11 +24,11 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 
 public class AlbumView extends Controller implements Initializable {
 
 
-    public TextField photoNameTF;
 
     public TextField captionNameTF;
     public ObservableList<Album> filiteredAlbumData = FXCollections.observableArrayList();
@@ -37,6 +37,7 @@ public class AlbumView extends Controller implements Initializable {
     public GridPane photoGp;
     public AnchorPane albumAnchorPane;
     public Label albumNameTF;
+    public Label photoNameTF;
     int selectedThumbNailIndex;
 
 
@@ -229,8 +230,47 @@ public class AlbumView extends Controller implements Initializable {
             Album deleteAlbum = filiteredAlbumData.get(selectedThumbNailIndex);
             System.out.println("delte"+deleteAlbum);
             albumData.remove(deleteAlbum);
+            deleteTagWhenNoPhoto(deleteAlbum);
             writeText();
             refresh();
+        }
+    }
+
+    public  void deleteTagWhenNoPhoto( Album deleteAlbum){
+        readTag();
+        System.out.println("tagdata size"+tagData.size());
+        for(Tag tag : tagData){
+            for(Album album : filiteredAlbumData) {
+                if (deleteAlbum.getImagePath().equals(tag.getImagePath())&&album.getUser().equals(tag.getUser())) {
+                    if (!album.getImagePath().contains(tag.getImagePath())){
+                        tagData.remove(tag);
+                        writePhotoText();
+                    }
+                }
+            }
+        }
+
+    }
+    public void readTag() {
+        tagData.clear();
+        File file = new File("src/main/java/com/example/photo/photo.txt");
+        Scanner input = null;
+        try {
+            input = new Scanner(file);
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        while(input.hasNext()){
+            String line = input.nextLine();
+            String [] array = line.split(",");
+            String imagePath = array[1];
+            String tagType = array[2];
+            String tagValue = array[3];
+
+
+            tagData.add(new Tag(loginUser,imagePath,tagType,tagValue));
+
         }
     }
 
@@ -271,17 +311,15 @@ public class AlbumView extends Controller implements Initializable {
             boolean albumCreated = false;
 
             for (int i = 0; i < albumData.size(); i++) {
-                if(albumData.get(i).getAlbumName().equals(destinationLocation)) {
+                if(albumData.get(i).getAlbumName().equals(destinationLocation)&&albumData.get(i).getUser().equals(loginUser)) {
                     albumCreated = true;
                 }
             }
             if(albumCreated){
-                System.out.println("delete"+deleteAlbum.getAlbumName()+","+deleteAlbum.getImagePath());
                 albumData.remove(deleteAlbum);
                 albumData.add(newAlbum);
                 writeText();
                 refresh();
-                System.out.println(newAlbum.getUser() + newAlbum.getAlbumName() + newAlbum.getImagePath() + newAlbum.getCaption());
 
             } else if (!albumCreated) {
                 locationTF.clear();
@@ -311,7 +349,7 @@ public class AlbumView extends Controller implements Initializable {
            boolean albumCreated = false;
 
             for (int i = 0; i < albumData.size(); i++) {
-                if(albumData.get(i).getAlbumName().equals(destinationLocation)) {
+                if(albumData.get(i).getAlbumName().equals(destinationLocation)&&albumData.get(i).getUser().equals(loginUser)) {
                     albumCreated = true;
                 }
             }

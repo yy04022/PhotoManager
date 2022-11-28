@@ -172,8 +172,8 @@ public class PhotoView extends Controller implements Initializable{
         filterTag(album);
         boolean duplicate = false;
         for(int i = 0; i<filteredTagData.size();i++){
-            if(filteredTagData.get(i).getTagType().equals(type)){
-                System.out.println("same tag");
+            if(filteredTagData.get(i).getTagType().equals(type)&&filteredTagData.get(i).getTagValue().equals(value)){
+                showAlertAddDialog(actionEvent,"Error! Duplicate tagValue and tagType!");
                 duplicate =true;
                 break;
             }
@@ -216,9 +216,7 @@ public class PhotoView extends Controller implements Initializable{
             writePhotoText();
 
 
-//            todo, rewite writetext method,
-//             becuase for loop of filifterAblumData contain all photo,
-//             also do
+
 
             Date d = Calendar.getInstance().getTime();
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");

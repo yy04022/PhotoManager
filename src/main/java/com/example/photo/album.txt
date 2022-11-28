@@ -1,7 +1,10 @@
-user2,album1,null,null,No Date
-user1,album2,null,null,No Date
-user1,album2,/Users/yuuna/Documents/Photo/data/stock/cat.jpeg,null,2022-11-27
-user1,album2,/Users/yuuna/Documents/Photo/data/stock/banana.jpeg,null,2022-11-27
-user2,album2,null,null,No Date
-user2,album1,/Users/yuuna/Documents/Photo/data/stock/apple.jpeg,null,2022-11-27
-user2,album1,/Users/yuuna/Documents/Photo/data/stock/mcdonalds.jpeg,null,2022-11-25
+stock,stock,null,null,No Date
+stock,stock,/Users/yuuna/Documents/Photo/data/stock/banana.jpeg,null,2022-11-28
+stock,stock,/Users/yuuna/Documents/Photo/data/stock/car.jpeg,null,2022-11-28
+stock,stock,/Users/yuuna/Documents/Photo/data/stock/chickfila.jpeg,null,2022-11-28
+stock,stock,/Users/yuuna/Documents/Photo/data/stock/smoothie.jpeg,null,2022-11-28
+stock,stock,/Users/yuuna/Documents/Photo/data/stock/apple.jpeg,null,2022-11-28
+stock,stock,/Users/yuuna/Documents/Photo/data/stock/ragdoll.jpeg,null,2022-11-28
+stock,stock,/Users/yuuna/Documents/Photo/data/stock/dog.jpeg,null,2022-11-28
+stock,stock,/Users/yuuna/Documents/Photo/data/stock/smoothie.jpeg,null,2022-11-28
+stock,stock,/Users/yuuna/Documents/Photo/data/stock/cat.jpeg,null,2022-11-28

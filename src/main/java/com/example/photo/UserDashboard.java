@@ -48,13 +48,15 @@ public class UserDashboard extends Controller implements Initializable {
     }
 
     private void setupAlbum() {
+
+        ObservableList<Album> filiteredAlbumData = FXCollections.observableArrayList();
+        filiteredAlbumData.clear();
         albumData.clear();
         try {
             readText();
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-        ObservableList<Album> filiteredAlbumData = FXCollections.observableArrayList();
         HashSet<String> hashSet = new HashSet<String>();
         for(int i = 0;i<albumData.size();i++){
             boolean valid = hashSet.add(albumData.get(i).getAlbumName());
