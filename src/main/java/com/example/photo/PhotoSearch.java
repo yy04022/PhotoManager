@@ -367,7 +367,7 @@ public class PhotoSearch extends Controller implements Initializable {
 
             setAllThumbNail();
         } else {
-            showAlertAddDialog(actionEvent, "No Image Found.");
+            showAlertAddDialog(actionEvent, "No Image Found.The From Date and To Date are not included!");
         }
         clearInput();
 

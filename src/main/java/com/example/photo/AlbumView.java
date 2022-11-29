@@ -275,7 +275,7 @@ public class AlbumView extends Controller implements Initializable {
     }
 
     public void captionButtonClick(ActionEvent actionEvent) {
-        if(selectedThumbNailIndex!=1){
+        if(selectedThumbNailIndex!=-1){
             String caption = captionNameTF.getText();
             Album editAlbum = filiteredAlbumData.get(selectedThumbNailIndex);
             editAlbum.setCaption(caption);
@@ -291,6 +291,7 @@ public class AlbumView extends Controller implements Initializable {
             editAlbum.setDate(sd);
             writeText();
             refresh();
+            selectedThumbNailIndex = -1;
         }
 
     }
