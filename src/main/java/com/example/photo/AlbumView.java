@@ -281,7 +281,7 @@ public class AlbumView extends Controller implements Initializable {
             editAlbum.setCaption(caption);
 
             for(int i = 0; i<albumData.size();i++){
-                if(albumData.get(i).getImagePath().equals(editAlbum.getImagePath())){
+                if(albumData.get(i).getImagePath().equals(editAlbum.getImagePath())&&albumData.get(i).getUser().equals(loginUser)){
                     albumData.get(i).setCaption(caption);
                 }
             }
@@ -380,7 +380,7 @@ public class AlbumView extends Controller implements Initializable {
 
 
     public void backButtonClick(ActionEvent actionEvent) {
-        selectedAlbum = null ;
+//        selectedAlbum = null ;
         filiteredAlbumData.clear();
         albumData.clear();
         photoGp.getChildren().clear();
