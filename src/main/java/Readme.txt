@@ -14,8 +14,6 @@ Testing Search by Date
     We are using the function from Date class, date.isBefore and date.isAfter
 
 !Do Not clear any data in "user.ser" - This might read file error which lead non functioning loadpage;!
--You can clear the "album.ser"- since the photo might not load because
- the filepath contained serialized ImagePath from my laptop that does not match yours
- and this could not be manually changed on the ser file.
+-You can clear the "album.ser"- filepath could not be manually changed on the ser file.
 -You can only clear the "album.ser" and "tag.ser";
 Do not touch the ser file, because they are seralized.
