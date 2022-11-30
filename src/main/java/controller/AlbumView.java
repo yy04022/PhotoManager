@@ -41,7 +41,7 @@ public class AlbumView extends Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        setStockPhoto();
+//        setStockPhoto();
             photoGp.getChildren().clear();
             filiteredAlbumData.clear();
             selectedThumbNailIndex = -1;
@@ -73,17 +73,17 @@ public class AlbumView extends Controller implements Initializable {
         setAllThumbNail();
 
     }
-    private  void setStockPhoto(){
-        albumData.get(0).setImagePath("data/stock/apple.jpeg");
-        albumData.get(1).setImagePath("data/stock/cat.jpeg");
-        albumData.get(2).setImagePath("data/stock/car.jpeg");
-        albumData.get(3).setImagePath("data/stock/banana.jpeg");
-        albumData.get(4).setImagePath("data/stock/chickfila.jpeg");
-        albumData.get(5).setImagePath("data/stock/dog.jpeg");
-        albumData.get(6).setImagePath("data/stock/apple.jpeg");
-        writeText();
-
-    }
+//    private  void setStockPhoto(){
+//        albumData.get(0).setImagePath("data/stock/apple.jpeg");
+//        albumData.get(1).setImagePath("data/stock/cat.jpeg");
+//        albumData.get(2).setImagePath("data/stock/car.jpeg");
+//        albumData.get(3).setImagePath("data/stock/banana.jpeg");
+//        albumData.get(4).setImagePath("data/stock/chickfila.jpeg");
+//        albumData.get(5).setImagePath("data/stock/dog.jpeg");
+//        albumData.get(6).setImagePath("data/stock/apple.jpeg");
+//        writeText();
+//
+//    }
     private void filiterData(){
         filiteredAlbumData.clear();
         for(int i = 0;i<albumData.size();i++){
