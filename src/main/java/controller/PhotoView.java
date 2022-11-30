@@ -1,5 +1,7 @@
-package com.example.photo;
+package controller;
 
+import model.Album;
+import model.Tag;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -11,15 +13,13 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
+import model.User;
 
 import java.io.*;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.ResourceBundle;
-import java.util.Scanner;
+import java.util.*;
 
 //import javax.management.RuntimeErrorException;
 
@@ -42,6 +42,7 @@ public class PhotoView extends Controller implements Initializable{
 
 
     public void initialize(URL url, ResourceBundle resourceBundle){
+        readTagText();
         filterData();
         displayImage(photoIndex);
         displayData(photoIndex);
@@ -110,28 +111,13 @@ public class PhotoView extends Controller implements Initializable{
 //    }
 
     public void readTag() {
-        tagData.clear();
         tagsLV.getItems().clear();
-        File file = new File("src/main/java/com/example/photo/photo.txt");
-        Scanner input = null;
-        try {
-            input = new Scanner(file);
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        while(input.hasNext()){
-            String line = input.nextLine();
-            String [] array = line.split(",");
-            String imagePath = array[1];
-            String tagType = array[2];
-            String tagValue = array[3];
-            if(filteredAlbumData.get(index).getImagePath().equals(imagePath)){// checks each to find imagepath match
-                tagsLV.getItems().add(tagType+", "+tagValue);
 
+        for (Tag tag : tagData) {
+            if (filteredAlbumData.get(index).getImagePath().equals(tag.getImagePath())) {// checks each to find imagepath match
+                tagsLV.getItems().add(tag.getTagType() + ", " + tag.getTagValue());
             }
 
-            tagData.add(new Tag(loginUser,imagePath,tagType,tagValue));
 
         }
     }
@@ -179,19 +165,12 @@ public class PhotoView extends Controller implements Initializable{
             }
         }
         if(!type.isEmpty()&&!value.isEmpty()&&!duplicate){
+            Tag newTag = new Tag(loginUser,album.getImagePath(),type,value);
 
             tagsLV.getItems().add(type+value);
-            //this filewriter works for adding but not for deltebutton click
-            try {
-                FileWriter fileWriter = new FileWriter("src/main/java/com/example/photo/photo.txt",true);
-                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-                bufferedWriter.write(album.getUser()+","+album.getImagePath()+","+type+","+value);
-                bufferedWriter.newLine();
-                bufferedWriter.close();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
 
+            tagData.add(newTag);
+            writeTagText();
             Date d = Calendar.getInstance().getTime();
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String sd = dateFormat.format(d);
@@ -213,19 +192,22 @@ public class PhotoView extends Controller implements Initializable{
             System.out.println("delete"+selectedTagIndex);
             tagsLV.getItems().remove(selectedTagIndex);
             tagData.remove(selectedTagIndex);
-            writePhotoText();
+
+            writeTagText();
+            readTagText();
 
 
 
 
-            Date d = Calendar.getInstance().getTime();
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            String sd = dateFormat.format(d);
-            Album album = filteredAlbumData.get(index);
-            album.setDate(sd);
-            //System.out.println("Date after remove tag: "+album.getDate());
-            displayData(index);
-            writeText();
+//            Date d = Calendar.getInstance().getTime();
+//            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//            String sd = dateFormat.format(d);
+//            Album album = filteredAlbumData.get(index);
+//            album.setDate(sd);
+//            //System.out.println("Date after remove tag: "+album.getDate());
+//            displayData(index);
+//            writeText();
+//            readTagText();
         }
 
     }

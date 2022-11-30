@@ -1,19 +1,17 @@
-package com.example.photo;
+package controller;
 
+import model.Album;
+import model.Tag;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 
@@ -213,15 +211,18 @@ public class AlbumView extends Controller implements Initializable {
     }
 
     public void addPhotoButtonClick(ActionEvent actionEvent) {
-        String filePath = getUserFilePath();
-        Album newAlbum = new Album(loginUser,selectedAlbum,filePath,"null","null");
-        Date d = Calendar.getInstance().getTime();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String sd = dateFormat.format(d);
-        newAlbum.setDate(sd);
-        albumData.add(newAlbum);
-        writeText();
-        refresh();
+        String confirmation=showDialog(actionEvent);
+        if(confirmation.equals("ok")) {
+            String filePath = getUserFilePath();
+            Album newAlbum = new Album(loginUser, selectedAlbum, filePath, "null", "null");
+            Date d = Calendar.getInstance().getTime();
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String sd = dateFormat.format(d);
+            newAlbum.setDate(sd);
+            albumData.add(newAlbum);
+            writeText();
+            refresh();
+        }
     }
 
     public void deletePhotoButtonClick(ActionEvent actionEvent) {
@@ -244,7 +245,8 @@ public class AlbumView extends Controller implements Initializable {
                 if (deleteAlbum.getImagePath().equals(tag.getImagePath())&&album.getUser().equals(tag.getUser())) {
                     if (!album.getImagePath().contains(tag.getImagePath())){
                         tagData.remove(tag);
-                        writePhotoText();
+
+                        writeTagText();
                     }
                 }
             }
@@ -253,25 +255,25 @@ public class AlbumView extends Controller implements Initializable {
     }
     public void readTag() {
         tagData.clear();
-        File file = new File("src/main/java/com/example/photo/photo.txt");
-        Scanner input = null;
-        try {
-            input = new Scanner(file);
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        while(input.hasNext()){
-            String line = input.nextLine();
-            String [] array = line.split(",");
-            String imagePath = array[1];
-            String tagType = array[2];
-            String tagValue = array[3];
-
-
-            tagData.add(new Tag(loginUser,imagePath,tagType,tagValue));
-
-        }
+//        File file = new File("src/main/java/controller/photo.txt");
+//        Scanner input = null;
+//        try {
+//            input = new Scanner(file);
+//        } catch (FileNotFoundException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
+//        while(input.hasNext()){
+//            String line = input.nextLine();
+//            String [] array = line.split(",");
+//            String imagePath = array[1];
+//            String tagType = array[2];
+//            String tagValue = array[3];
+//
+//
+//            tagData.add(new Tag(loginUser,imagePath,tagType,tagValue));
+//
+//        }
     }
 
     public void captionButtonClick(ActionEvent actionEvent) {

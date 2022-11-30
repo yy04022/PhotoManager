@@ -1,5 +1,7 @@
-package com.example.photo;
+package controller;
 
+import model.Album;
+import model.User;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -11,6 +13,7 @@ import javafx.scene.control.TextField;
 
 import java.io.*;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
@@ -44,64 +47,32 @@ public class AdminController extends Controller {
     }
     private void setupTable() {
         try {
-            readText();
+            readUserText();
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
 
-        userList.setItems(data);
+        userList.setItems(userData);
 
 
     }
-    public void readText() throws FileNotFoundException {
-        File file = new File("src/main/java/com/example/photo/users.txt");
-        Scanner input = new Scanner(file);
-        while(input.hasNext()){
-            String line = input.next();
-            User user = new User(line);
-            data.add(user);
-
-        }
-    }
-
-    public void writeText(User user){
-        try {
-            FileWriter fileWriter = new FileWriter("src/main/java/com/example/photo/users.txt",true);
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            bufferedWriter.newLine();
-            bufferedWriter.write(user.getUsername());
-            bufferedWriter.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
 
 
-    }
+
     public void deleteUserButtonClick(ActionEvent actionEvent) {
         String confirmation=showDialog(actionEvent);
         if(confirmation.equals("ok")) {
             User deleteUser = userList.getSelectionModel().getSelectedItem();
             userList.getItems().remove(deleteUser);
-            data.remove(deleteUser);
+            userData.remove(deleteUser);
             userList.getSelectionModel().select(deleteUser);
-            StringBuilder stringBuilder = new StringBuilder();
-            for (User user : data) {
-                stringBuilder.append(user.getUsername()).append("\n");
-            }
-            try {
+            writeUserText();
 
-                FileWriter fileWriter = new FileWriter("src/main/java/com/example/photo/users.txt", false);
-                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-                bufferedWriter.write(stringBuilder.toString());
-                bufferedWriter.close();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
         }
     }
 
     public void listUserButtonClick(ActionEvent actionEvent) {
-        data.clear();
+        userData.clear();
         setupTable();
     }
 
@@ -110,14 +81,14 @@ public class AdminController extends Controller {
         User newUser = new User(username);
         String confirmation=showDialog(actionEvent);
         if(confirmation.equals("ok")&& !userNameTF.getText().isEmpty()) {
-            if (data.contains(newUser)) {
+            if (userData.contains(newUser)) {
                 System.out.println("duplicate user");
             } else {
-                data.add(newUser);
-                userList.setItems(data);
+                userData.add(newUser);
+                userList.setItems(userData);
                 userNameTF.clear();
 
-                writeText(newUser);
+                writeUserText();
             }
         }
     }

@@ -1,5 +1,7 @@
-package com.example.photo;
+package controller;
 
+import model.Album;
+import model.Tag;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -42,32 +44,32 @@ public class PhotoSearch extends Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        readTag();
+        readTagText();
 
     }
 
-    public void readTag() {
-        tagData.clear();
-        File file = new File("src/main/java/com/example/photo/photo.txt");
-        Scanner input = null;
-        try {
-            input = new Scanner(file);
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        while (input.hasNext()) {
-            String line = input.nextLine();
-            String[] array = line.split(",");
-            String imagePath = array[1];
-            String tagType = array[2];
-            String tagValue = array[3];
-
-
-            tagData.add(new Tag(loginUser, imagePath, tagType, tagValue));
-
-        }
-    }
+//    public void readTag() {
+//        tagData.clear();
+//        File file = new File("src/main/java/controller/photo.txt");
+//        Scanner input = null;
+//        try {
+//            input = new Scanner(file);
+//        } catch (FileNotFoundException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
+//        while (input.hasNext()) {
+//            String line = input.nextLine();
+//            String[] array = line.split(",");
+//            String imagePath = array[1];
+//            String tagType = array[2];
+//            String tagValue = array[3];
+//
+//
+//            tagData.add(new Tag(loginUser, imagePath, tagType, tagValue));
+//
+//        }
+//    }
 
     public void searchButtonClick(ActionEvent actionEvent) {
         resultGP.getChildren().removeAll();

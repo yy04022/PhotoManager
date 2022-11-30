@@ -1,5 +1,6 @@
-package com.example.photo;
+package controller;
 
+import model.Album;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -71,24 +72,32 @@ public class UserDashboard extends Controller implements Initializable {
 
     }
     public void readText() throws FileNotFoundException {
-        File file = new File("src/main/java/com/example/photo/album.txt");
-        Scanner input = new Scanner(file);
 
-        while(input.hasNext()){
-            String line = input.nextLine();
-            String [] array  = line.split(",");
-            Album newAlbum = new Album(array[0],array[1],array[2],array[3],array[4]);
-
-//          if(newAlbum.getUser().equals(loginUser)) {
-              albumData.add(newAlbum);
-
-//              boolean valid = hashSet.add(array[1]);
-//              if(valid) {
-//                  albumData.add(newAlbum);
-//              }
-//            }
-
+        try {
+            FileInputStream fileInputStream = new FileInputStream(serializeFile);
+            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+            ArrayList<Album> albumArrayList = (ArrayList)objectInputStream.readObject();
+            albumData.clear();
+            for(Album album: albumArrayList){
+                albumData.add(album);
+            }
+            System.out.println(albumData.get(0).getAlbumName());
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlertAddDialog(new ActionEvent(), "File Not Read");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
+
+//        File file = new File("src/main/java/com/example/photo/album.txt");
+//        Scanner input = new Scanner(file);
+//
+//        while(input.hasNext()){
+//            String line = input.nextLine();
+//            String [] array  = line.split(",");
+//            Album newAlbum = new Album(array[0],array[1],array[2],array[3],array[4]);
+//              albumData.add(newAlbum);
+//        }
     }
 //    public void writeText(Album album){
 //        try {
@@ -113,7 +122,7 @@ public class UserDashboard extends Controller implements Initializable {
         }
         try {
 
-            FileWriter fileWriter = new FileWriter("src/main/java/com/example/photo/album.txt",false);
+            FileWriter fileWriter = new FileWriter("src/main/java/controller/album.txt",false);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             bufferedWriter.write(stringBuilder.toString());
             bufferedWriter.close();
