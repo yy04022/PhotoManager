@@ -20,7 +20,7 @@
                   <Font size="28.0" />
                </font>
             </Label>
-            <Label layoutX="21.0" layoutY="88.0" text="Photo Name:">
+            <Label layoutX="21.0" layoutY="88.0" text="ImagePath Name:">
                <font>
                   <Font size="17.0" />
                </font>

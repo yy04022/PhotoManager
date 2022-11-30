@@ -88,6 +88,7 @@ public class PhotoView extends Controller implements Initializable{
     }
 
     public void displayData(int num){
+        photoNameLabel.setText(filteredAlbumData.get(num).getImagePath());
         captionLabel.setText(filteredAlbumData.get(num).getCaption());
         dateLabel.setText(filteredAlbumData.get(num).getDate());
     }
